@@ -13,6 +13,7 @@ export default function Login() {
         <div>
           <label className='ml-2 font-semibold text-gray-700'>USER NAME</label>
           <input
+            id='input-username'
             type='text'
             placeholder='Username'
             className='w-full mx-auto p-1 mt-1 mb-5 rounded-lg pl-2 border-2 font-semibold text-slate-700 border-slate-500 shadow-sm placeholder:text-slate-400 placeholder:text-sm focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-green-400'
@@ -21,6 +22,7 @@ export default function Login() {
         <div>
           <label className='ml-2 font-semibold text-gray-700'>PASSWORD</label>
           <input
+            id='input-password'
             type='Password'
             placeholder='Password'
             className='w-full mx-auto p-1 mt-1 rounded-lg pl-2 border-2 font-semibold text-slate-700 border-slate-500 shadow-sm placeholder:text-slate-400 placeholder:text-sm focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-green-400'
@@ -34,7 +36,7 @@ export default function Login() {
             </span>
           </Link>
         </div>
-        <button className='mt-10 block mx-auto px-5 py-2 rounded-full text-white font-semibold bg-green-400 hover:bg-green-500 active:bg-green-600'>
+        <button id='btn-signin' className='mt-10 block mx-auto px-5 py-2 rounded-full text-white font-semibold bg-green-400 hover:bg-green-500 active:bg-green-600'>
           Sign In
         </button>
       </form>
