@@ -5,6 +5,9 @@ export default function login() {
   return (
     <>
       <h1 className='text-6xl text-center mt-48'>LesGoo</h1>
+      <p className='text-base text-center font-semibold text-slate-500'>
+        Make your roadtrip easier
+      </p>
       <h3 className='text-4xl font-semibold text-center mt-20'>Sign In</h3>
       <form className='mt-12 mx-auto w-8/12'>
         <div>
@@ -25,7 +28,7 @@ export default function login() {
         </div>
         <div className='flex justify-between text-sm mt-1'>
           <span className='text-slate-600'>Not registered?</span>
-          <Link href=''>
+          <Link href='/register'>
             <span className='text-green-400 active:text-green-600'>
               Create an account
             </span>
