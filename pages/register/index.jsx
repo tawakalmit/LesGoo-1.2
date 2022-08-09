@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 
-export default function register() {
+export default function Register() {
   return (
     <>
       <h1 className='text-4xl font-semibold text-center mt-44'>Register</h1>
@@ -23,7 +23,7 @@ export default function register() {
           />
         </div>
         <div className='mb-5'>
-          <label className='ml-2 font-semibold text-gray-700'>Phone</label>
+          <label className='ml-2 font-semibold text-gray-700'>PHONE</label>
           <input
             type='number'
             placeholder='0123456789'
@@ -45,7 +45,7 @@ export default function register() {
             type='checkbox'
             value=''
             required
-            className='w-4 h-4 bg-gray-100 rounded border-gray-300'
+            className='w-4 h-4 bg-gray-100 rounded border-gray-300 '
           />
           <label
             htmlFor='link-checkbox'

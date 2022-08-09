@@ -1,10 +1,10 @@
 import React from 'react';
 import Link from 'next/link';
 
-export default function login() {
+export default function Login() {
   return (
     <>
-      <h1 className='text-6xl text-center mt-48'>LesGoo</h1>
+      <h1 className='text-6xl text-center mt-40'>LesGoo</h1>
       <p className='text-base text-center font-semibold text-slate-500'>
         Make your roadtrip easier
       </p>
