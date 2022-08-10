@@ -44,7 +44,7 @@ export default function Login() {
 
   return (
     <>
-      <h1 className='text-6xl text-center mt-40'>LesGoo</h1>
+      <h1 className='text-6xl text-center mt-20'>LesGoo</h1>
       <p className='text-base text-center font-semibold text-slate-500'>
         Make your roadtrip easier
       </p>
