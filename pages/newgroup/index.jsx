@@ -1,15 +1,16 @@
 import React from 'react'
-import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 import { MdArrowBack } from 'react-icons/md'
 import { CgProfile } from 'react-icons/cg'
 import { BsFillArrowRightCircleFill } from 'react-icons/bs'
 
 export default function Newgroup() {
+    const route = useRouter();
   return (
     <div>
         <div className='w-full h-12 bg-[#1abc9c] flex items-center'>
-            <Link href='/'><MdArrowBack id='back-to-home' className='absolute left-5' size={25} color='white' /></Link>
+            <MdArrowBack id='back-to-home' className='absolute left-5' size={25} color='white' onClick={() => {route.push('/')}} />
             <h1 className='text-white text-xl mx-auto'>New Group</h1>
         </div>
         <form>
