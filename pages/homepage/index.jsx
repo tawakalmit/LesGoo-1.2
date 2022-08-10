@@ -13,8 +13,8 @@ export default function Homepage() {
             <Mygroup label='Road Trip Rinjani' />
             <Mygroup label='OTW Pelabuhan Ratu' />
         </div>
-        <BsPeopleFill className='fixed bottom-5 left-7' size={40} color='#1abc9c' />
-        <MdAddCircle className='fixed bottom-5 right-5' size={50} color='#1abc9c' />
+        <BsPeopleFill className='fixed bottom-5 left-7' size={40} color='#1abc9c' id='btn-joingroup' />
+        <MdAddCircle className='fixed bottom-5 right-5' size={50} color='#1abc9c' id='btn-addgroup' />
     </div>
   )
 }
