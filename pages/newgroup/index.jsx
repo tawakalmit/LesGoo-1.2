@@ -19,7 +19,7 @@ export default function Newgroup() {
                 <p className='text-xs text-center mt-3 opacity-50'>Provide a group subject and optional group icon</p>
             </div>
             <div className='w-full mt-10 h-32 bg-white flex flex-col items-center'>
-                <textarea id='input-groupdes' name="description" id="description" placeholder=' add group description' cols="30" rows="10" className='rounded-xl mt-5 h-24 bg-[#d9d9d9] w-10/12' ></textarea>
+                <textarea id='input-groupdes' name="description" placeholder=' add group description' cols="30" rows="10" className='rounded-xl mt-5 h-24 bg-[#d9d9d9] w-10/12' ></textarea>
             </div>
             <div className='w-full mt-10 h-32 bg-white'>
                 <h2 className='p-3'>Set Destination</h2>
