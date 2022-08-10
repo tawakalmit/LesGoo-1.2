@@ -6,7 +6,7 @@ export default function Profile() {
   return (
     <div>
         <div className='w-full h-12 bg-[#1abc9c] flex items-center'>
-            <MdArrowBack className='absolute left-5' size={25} color='white' />
+            <MdArrowBack id='back-to-home' className='absolute left-5' size={25} color='white' />
             <h1 className='text-white text-xl mx-auto'>Profile</h1>
         </div>
         <div className='w-10/12 flex flex-col mx-auto items-center'>
@@ -22,7 +22,7 @@ export default function Profile() {
             </div>
         </div>
         <div className='w-full flex mt-5'>
-            <button className='p-2 text-xs mx-auto rounded-full text-white bg-[#3498db]'>Edit Profile</button>
+            <button id='btn-editprofile' className='p-2 text-xs mx-auto rounded-full text-white bg-[#3498db]'>Edit Profile</button>
         </div>
     </div>
   )
