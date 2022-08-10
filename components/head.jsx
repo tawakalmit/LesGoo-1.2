@@ -7,8 +7,8 @@ export default function Head({groupname, groupid, participants }) {
   return (
     <div className='bg-[#1abc9c] w-full h-fit'>
       <div className='w-11/12 mx-auto justify-between pt-5 flex'>
-        <MdArrowBack size={25} color='white' />
-        <HiDotsVertical size={25} color='white'/>
+        <MdArrowBack id='back-to-home' size={25} color='white' />
+        <HiDotsVertical id='des-option' size={25} color='white'/>
       </div>
       <div className='flex flex-col items-center pb-2'>
         <AiFillPicture size={100} />
