@@ -1,13 +1,14 @@
 import React from 'react';
 import { MdArrowBack } from 'react-icons/md';
 import { CgProfile } from 'react-icons/cg';
+import Link from 'next/link';
 
 export default function Editprofile() {
   return (
     <>
       <div>
         <div className='w-full h-12 bg-[#1abc9c] flex items-center'>
-          <MdArrowBack id='back-to-profile' className='absolute left-5' size={25} color='white' />
+          <Link href='/profile'><MdArrowBack id='back-to-profile' className='absolute left-5' size={25} color='white' /></Link>
           <h1 className='text-white text-xl mx-auto'>Profile</h1>
         </div>
         <div className='w-10/12 flex flex-col mx-auto items-center'>

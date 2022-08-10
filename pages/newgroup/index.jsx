@@ -1,4 +1,6 @@
 import React from 'react'
+import Link from 'next/link'
+
 import { MdArrowBack } from 'react-icons/md'
 import { CgProfile } from 'react-icons/cg'
 import { BsFillArrowRightCircleFill } from 'react-icons/bs'
@@ -7,7 +9,7 @@ export default function Newgroup() {
   return (
     <div>
         <div className='w-full h-12 bg-[#1abc9c] flex items-center'>
-            <MdArrowBack id='back-to-home' className='absolute left-5' size={25} color='white' />
+            <Link href='/'><MdArrowBack id='back-to-home' className='absolute left-5' size={25} color='white' /></Link>
             <h1 className='text-white text-xl mx-auto'>New Group</h1>
         </div>
         <form>

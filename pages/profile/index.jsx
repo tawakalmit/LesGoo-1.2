@@ -1,12 +1,13 @@
 import React from 'react'
 import { MdArrowBack } from 'react-icons/md'
 import { CgProfile } from 'react-icons/cg'
+import Link from 'next/link'
 
 export default function Profile() {
   return (
     <div>
         <div className='w-full h-12 bg-[#1abc9c] flex items-center'>
-            <MdArrowBack id='back-to-home' className='absolute left-5' size={25} color='white' />
+            <Link href='/'><MdArrowBack id='back-to-home' className='absolute left-5' size={25} color='white' /></Link>
             <h1 className='text-white text-xl mx-auto'>Profile</h1>
         </div>
         <div className='w-10/12 flex flex-col mx-auto items-center'>
@@ -22,7 +23,7 @@ export default function Profile() {
             </div>
         </div>
         <div className='w-full flex mt-5'>
-            <button id='btn-editprofile' className='p-2 text-xs mx-auto rounded-full text-white bg-[#3498db]'>Edit Profile</button>
+            <Link href='/editprofile'><button id='btn-editprofile' className='p-2 text-xs mx-auto rounded-full text-white bg-[#3498db]'>Edit Profile</button></Link>
         </div>
     </div>
   )
