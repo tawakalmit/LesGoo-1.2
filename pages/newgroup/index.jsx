@@ -1,12 +1,16 @@
 import React from 'react'
 import { useRouter } from 'next/router'
-import Map from '../../components/map'
+import dynamic from 'next/dynamic'
+import "leaflet/dist/leaflet.css"
 
 import { MdArrowBack } from 'react-icons/md'
 import { CgProfile } from 'react-icons/cg'
 import { BsFillArrowRightCircleFill } from 'react-icons/bs'
 
 export default function Newgroup() {
+    const Map = dynamic(() => import('../../components/map'), {
+        ssr: false
+      });
     const route = useRouter();
   return (
     <div>
