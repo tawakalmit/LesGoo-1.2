@@ -1,5 +1,6 @@
 import React from 'react'
 import { useRouter } from 'next/router'
+import Map from '../../components/map'
 
 import { MdArrowBack } from 'react-icons/md'
 import { CgProfile } from 'react-icons/cg'
@@ -26,6 +27,7 @@ export default function Newgroup() {
             </div>
             <div className='w-full mt-10 h-32 bg-white'>
                 <h2 className='p-3'>Set Destination</h2>
+                <Map />
             </div>
             <div className='w-full flex justify-end mt-10'>
                 <BsFillArrowRightCircleFill id='btn-newgroup' size={40} color='#1abc9c' className='mr-5'/>
