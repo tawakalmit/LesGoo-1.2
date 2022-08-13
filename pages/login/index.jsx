@@ -2,12 +2,13 @@ import React from 'react';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import { setCookie } from 'cookies-next';
+import { setCookie, getCookie } from 'cookies-next';
 
 export default function Login() {
   const [dataLogin, setDataLogin] = useState({ username: '', password: '' });
 
   const router = useRouter();
+  const token = getCookie('usr_token');
 
   const handleChangeUserName = (e) => {
     setDataLogin((state) => ({ ...state, username: e.target.value }));
@@ -41,6 +42,10 @@ export default function Login() {
       console.log('error:', error);
     }
   };
+
+  if (token) {
+    router.replace('/');
+  }
 
   return (
     <>
