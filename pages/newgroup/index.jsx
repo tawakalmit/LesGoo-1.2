@@ -61,10 +61,10 @@ export default function Newgroup() {
         setObjSubmit(temp);
       };
 
-  return (
+  return(
     <div>
       <Navbarback title={'New Group'} />
-      <form>
+      <form onSubmit={(e) => handleSubmit(e)}>
         <div className='w-full h-32 bg-white'>
           <div className='w-10/12 mx-auto flex justify-around'>
             <CgProfile
@@ -84,8 +84,7 @@ export default function Newgroup() {
             Provide a group subject and optional group icon
           </p>
         </div>
-        <form onSubmit={(e) => handleSubmit(e)}>
-            <div className='w-full h-32 bg-white'>
+        <div className='w-full h-32 bg-white'>
                 <div className='w-10/12 mx-auto flex justify-around'>
                     <CgProfile id='input-groupimage' size={60} color='#2c3e50' className='mt-5' />
                     <input id='input-groupname' type="text" placeholder=' type group subject' className='mt-5 w-9/12 rounded-xl bg-[#d9d9d9]' onChange={(e) => handleChange(e.target.value, "groupname")} />
