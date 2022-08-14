@@ -3,9 +3,9 @@ import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
 import "leaflet/dist/leaflet.css"
 
-import { MdArrowBack } from 'react-icons/md'
-import { CgProfile } from 'react-icons/cg'
-import { BsFillArrowRightCircleFill } from 'react-icons/bs'
+import { CgProfile } from 'react-icons/cg';
+import { BsFillArrowRightCircleFill } from 'react-icons/bs';
+import Navbarback from '../../components/navbarback';
 
 export default function Newgroup() {
     const Map = dynamic(() => import('../../components/map'), {
@@ -63,9 +63,26 @@ export default function Newgroup() {
 
   return (
     <div>
-        <div className='w-full h-12 bg-[#1abc9c] flex items-center'>
-            <MdArrowBack id='back-to-home' className='absolute left-5' size={25} color='white' onClick={() => {route.push('/')}} />
-            <h1 className='text-white text-xl mx-auto'>New Group</h1>
+      <Navbarback title={'New Group'} />
+      <form>
+        <div className='w-full h-32 bg-white'>
+          <div className='w-10/12 mx-auto flex justify-around'>
+            <CgProfile
+              id='input-groupimage'
+              size={60}
+              color='#2c3e50'
+              className='mt-5'
+            />
+            <input
+              id='input-groupname'
+              type='text'
+              placeholder=' type group subject'
+              className='mt-5 w-9/12 rounded-xl bg-[#d9d9d9]'
+            />
+          </div>
+          <p className='text-xs text-center mt-3 opacity-50'>
+            Provide a group subject and optional group icon
+          </p>
         </div>
         <form onSubmit={(e) => handleSubmit(e)}>
             <div className='w-full h-32 bg-white'>
@@ -119,5 +136,5 @@ export default function Newgroup() {
             </button>
         </form>
     </div>
-  )
+  );
 }
