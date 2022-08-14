@@ -11,8 +11,8 @@ export default function group() {
 
   const [location, setLocation] = useState({ lat: -6.7169157, lng: 107.0296782});
   const [destination, setDestination] = useState({ lat: -6.7310985770600755, lng: 107.04116821289064});
-  const [latitude, setLatitude] = useState(null);
-  const [longitude, setLongitude] = useState(null);
+  const [latitude, setLatitude] = useState({lat:null});
+  const [longitude, setLongitude] = useState({lng:null});
 
   useEffect(()=> {
     navigator.geolocation.getCurrentPosition(function(position) {
