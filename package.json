@@ -13,11 +13,14 @@
     "@reduxjs/toolkit": "^1.8.3",
     "axios": "^0.27.2",
     "cookies-next": "^2.1.1",
+    "firebase": "^9.9.2",
+    "localforage": "^1.10.0",
     "next": "12.2.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.4.0",
-    "react-redux": "^8.0.2"
+    "react-redux": "^8.0.2",
+    "react-toastify": "^9.0.8"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.8",
