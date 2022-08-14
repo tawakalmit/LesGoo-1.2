@@ -4,7 +4,7 @@ import "leaflet/dist/leaflet.css";
 import "leaflet-defaulticon-compatibility";
 import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.webpack.css";
 
-export default function map({ center, draggable, onDragMarker, location, popup_label }) {
+export default function Map({ center, draggable, onDragMarker, location, popup_label }) {
 
   const markerRef = useRef(null);
 
