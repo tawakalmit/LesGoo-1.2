@@ -3,7 +3,7 @@ import Navbargroup from '../../components/navbargroup';
 import Footbar from '../../components/footbar';
 import dynamic from 'next/dynamic';
 
-export default function group() {
+export default function Group() {
 
   const Getmap = dynamic(() => import('../../components/getmap'), {
     ssr: false
