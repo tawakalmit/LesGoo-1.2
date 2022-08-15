@@ -7,6 +7,7 @@ import { Menu } from '@headlessui/react';
 import { CgProfile } from 'react-icons/cg';
 import { MdLogout } from 'react-icons/md';
 import { HiUserGroup } from 'react-icons/hi';
+import { BiDetail } from 'react-icons/bi'
 
 import { getCookie, deleteCookie } from 'cookies-next';
 
@@ -85,6 +86,13 @@ export default function Navbargroup() {
                       <div className='ml-2 p-2 flex justify-start items-center cursor-pointer'>
                         <CgProfile size={20} color='white' />
                         <p className='ml-3 text-white'>Profile</p>
+                      </div>
+                    </Link>
+
+                    <Link id='btn-groupdetail' href='/groupdetail'>
+                      <div className='ml-2 p-2 flex justify-start items-center cursor-pointer'>
+                        <BiDetail size={20} color='white' />
+                        <p className='ml-3 text-white'>Group Detail</p>
                       </div>
                     </Link>
 
