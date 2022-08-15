@@ -4,7 +4,6 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 
 import { GiHamburgerMenu } from 'react-icons/gi'
-import { AiFillHome, AiFillSetting } from 'react-icons/ai';
 import { Menu } from '@headlessui/react';
 import { CgProfile } from 'react-icons/cg';
 import { MdLogout } from 'react-icons/md';

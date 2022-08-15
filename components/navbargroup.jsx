@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-import { AiFillHome, AiFillSetting } from 'react-icons/ai';
+import { GiHamburgerMenu } from 'react-icons/gi'
 import { Menu } from '@headlessui/react';
 import { CgProfile } from 'react-icons/cg';
 import { MdLogout } from 'react-icons/md';
@@ -75,9 +75,9 @@ export default function Navbargroup() {
         <div>
           <Menu>
             <Menu.Button>
-              <AiFillSetting size={40} color='white' id='btn-burger' />
+            <GiHamburgerMenu size={30} color='white' id='btn-burger' />
             </Menu.Button>
-            <Menu.Items className='absolute right-0 shadow-lg top-16 w-40 bg-[#1abc9c]'>
+            <Menu.Items className='z-50 absolute right-0 shadow-lg top-16 w-40 bg-[#1abc9c]'>
               <Menu.Item>
                 {({ active }) => (
                   <div>
