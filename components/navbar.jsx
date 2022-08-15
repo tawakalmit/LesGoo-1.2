@@ -1,8 +1,9 @@
 import React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 
-import { AiFillHome, AiFillSetting } from 'react-icons/ai';
+import { GiHamburgerMenu } from 'react-icons/gi'
 import { Menu } from '@headlessui/react';
 import { CgProfile } from 'react-icons/cg';
 import { MdLogout } from 'react-icons/md';
@@ -42,19 +43,18 @@ export default function Navbar(props) {
   return (
     <div className='w-full h-16 bg-[#1abc9c]'>
       <div className='mx-auto h-16 items-center w-11/12 flex justify-between '>
-        <AiFillHome
-          className='cursor-pointer'
-          size={40}
-          color='white'
-          id='btn-home'
+        <Image 
+        src='/logo.png'
+        width={130}
+        height={40}
         />
         <div className='text-white text-xl font-semibold'> {props.title} </div>
         <div>
           <Menu>
             <Menu.Button>
-              <AiFillSetting size={40} color='white' id='btn-burger' />
+              <GiHamburgerMenu size={30} color='white' id='btn-burger' />
             </Menu.Button>
-            <Menu.Items className='absolute right-0 top-16 w-32 bg-[#1abc9c]'>
+            <Menu.Items className='z-10 absolute right-0 top-16 w-32 bg-[#1abc9c]'>
               <Menu.Item>
                 {({ active }) => (
                   <div>
