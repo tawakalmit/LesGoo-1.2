@@ -34,6 +34,7 @@ export default function Login() {
       if (response.status === 200) {
         console.log(data.data.token);
         setCookie('usr_token', data.data.token);
+        setCookie('usr_username', dataLogin.username);
         router.push('/');
       } else if (response.status >= 300) {
         throw data.message;
