@@ -43,7 +43,7 @@ export default function Navbar(props) {
 
   return (
     <div className='w-full h-16 bg-[#1abc9c]'>
-      <div className='mx-auto h-16 items-center w-11/12 flex justify-between '>
+      <div className='mx-auto h-16 items-center w-11/12 flex justify-between md:w-[425px]'>
         <Image 
         src='/logo.png'
         width={130}
