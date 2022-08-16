@@ -51,17 +51,18 @@ export default function Login() {
         }
       );
       const data = await response.json();
-      if (response.status === 200) {
+      if (response.status < 300) {
         // console.log(data.data.token);
         setCookie('usr_token', data.data.token);
         setCookie('usr_username', dataLogin.username);
         console.log(dataLogin);
-        // router.push('/');
+        router.push('/');
       } else if (response.status >= 300) {
         throw data.message;
       }
     } catch (error) {
       console.log('error:', error);
+      alert('your username or password is incorrect');
     }
   };
 

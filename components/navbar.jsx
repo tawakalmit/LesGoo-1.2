@@ -30,6 +30,7 @@ export default function Navbar(props) {
       if (response.status === 200) {
         console.log('logout success');
         deleteCookie('usr_token');
+        deleteCookie('usr_username');
         router.push('/login');
       } else if (response.status >= 300) {
         throw data.message;
