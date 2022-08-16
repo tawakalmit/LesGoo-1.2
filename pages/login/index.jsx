@@ -1,21 +1,44 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { setCookie, getCookie } from 'cookies-next';
+
+import localforage from 'localforage';
+import { current } from '@reduxjs/toolkit';
+
 import Image from 'next/image';
 
+
 export default function Login() {
-  const [dataLogin, setDataLogin] = useState({ username: '', password: '' });
+  const [dataLogin, setDataLogin] = useState({
+    username: '',
+    password: '',
+    fcm_token: '',
+  });
 
   const router = useRouter();
   const token = getCookie('usr_token');
+
+  useEffect(() => {
+    const getFcmToken = async () => {
+      const tokenInLocalForage = await localforage.getItem('fcm_token');
+      setDataLogin((current) => ({
+        ...current,
+        fcm_token: tokenInLocalForage,
+      }));
+    };
+    getFcmToken();
+  }, []);
 
   const handleChangeUserName = (e) => {
     setDataLogin((state) => ({ ...state, username: e.target.value }));
   };
   const handleChangePassword = (e) => {
-    setDataLogin((state) => ({ ...state, password: e.target.value }));
+    setDataLogin((state) => ({
+      ...state,
+      password: e.target.value,
+    }));
   };
 
   const handleSubmitSignIn = async (e) => {
@@ -32,16 +55,18 @@ export default function Login() {
         }
       );
       const data = await response.json();
-      if (response.status === 200) {
-        console.log(data.data.token);
+      if (response.status < 300) {
+        // console.log(data.data.token);
         setCookie('usr_token', data.data.token);
         setCookie('usr_username', dataLogin.username);
+        console.log(dataLogin);
         router.push('/');
       } else if (response.status >= 300) {
         throw data.message;
       }
     } catch (error) {
       console.log('error:', error);
+      alert('your username or password is incorrect');
     }
   };
 
