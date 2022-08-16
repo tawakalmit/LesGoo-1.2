@@ -14,6 +14,7 @@
     "axios": "^0.27.2",
     "cookies-next": "^2.1.1",
     "firebase": "^9.9.2",
+    "flowbite-datepicker": "^1.2.2",
     "leaflet": "^1.8.0",
     "leaflet-defaulticon-compatibility": "^0.1.1",
     "localforage": "^1.10.0",
