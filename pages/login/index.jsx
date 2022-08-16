@@ -3,8 +3,12 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { setCookie, getCookie } from 'cookies-next';
+
 import localforage from 'localforage';
 import { current } from '@reduxjs/toolkit';
+
+import Image from 'next/image';
+
 
 export default function Login() {
   const [dataLogin, setDataLogin] = useState({
@@ -72,12 +76,18 @@ export default function Login() {
 
   return (
     <>
-      <h1 className='text-6xl text-center mt-20'>LesGoo</h1>
+      <div className='w-full h-auto mt-20 flex justify-center'>
+      <Image 
+        src='/logo.png'
+        width={200}
+        height={70}
+        />
+      </div>
       <p className='text-base text-center font-semibold text-slate-500'>
         Make your roadtrip easier
       </p>
       <h3 className='text-4xl font-semibold text-center mt-20'>Sign In</h3>
-      <form onSubmit={handleSubmitSignIn} className='mt-12 mx-auto w-8/12'>
+      <form onSubmit={handleSubmitSignIn} className='mt-12 mx-auto w-8/12 mb-20'>
         <div>
           <label className='ml-2 font-semibold text-gray-700'>USER NAME</label>
           <input

@@ -15,6 +15,8 @@ export default function Newgroup() {
     const [latitude, setLatitude] = useState(null);
     const [longitude, setLongitude] = useState(null);
     const [objSubmit, setObjSubmit] = useState("")
+    const [startdate, setStartdate] = useState("")
+    const [enddate, setEnddate] = useState("")
     const [groupname, setGroupname] = useState("");
     const [groupdes, setGroupdes] = useState("");
     const [groupimg, setGroupimg] = useState("");
@@ -86,6 +88,16 @@ export default function Newgroup() {
         </div>
         <div className='w-full mt-10 h-32 bg-white flex flex-col items-center'>
           <textarea id='input-groupdes' name="description" placeholder=' add group description' cols="30" rows="10" className='rounded-xl mt-5 h-24 bg-[#d9d9d9] w-10/12' onChange={(e) => handleChange(e.target.value, "groupdes")} ></textarea>
+        </div>
+        <div className='w-full mt-10 h-32 bg-white flex justify-around items-center'>
+          <div className='bg-[#1abc9c] rounded'>
+            <p className='text-center text-white'>Start Date</p>
+            <input type="date" id='start-date' onChange={(e) => handleChange(e.target.value, "start-date")}  />
+          </div>
+          <div className='bg-[#1abc9c] rounded'>
+            <p className='text-center text-white'>End Date</p>
+            <input id='end-date' type="date" onChange={(e) => handleChange(e.target.value, "end-date")} />
+          </div>
         </div>
         <div className='w-full mt-10 h-auto bg-white'>
           <h2 className='p-3'>Start Location</h2>
