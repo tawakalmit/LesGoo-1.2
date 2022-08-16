@@ -3,8 +3,19 @@ import Navbargroup from '../../components/navbargroup';
 import Footbar from '../../components/footbar';
 import dynamic from 'next/dynamic';
 import Chat from '../../components/chat ';
+import Swal from 'sweetalert2';
 
 export default function Group() {
+
+  const [alerted, setAlerted] = useState(false);
+
+  if(alerted) {
+    Swal.fire(
+      {backdrop: `rgba(231, 76, 60, .7)`,
+      title: 'ALERT',
+      html: 'there are members left behind'})
+  }
+
   const Getmap = dynamic(() => import('../../components/getmap'), {
     ssr: false,
   });
