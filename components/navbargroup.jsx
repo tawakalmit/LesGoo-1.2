@@ -65,7 +65,7 @@ export default function Navbargroup() {
   };
 
   return (
-    <div className='stiky w-full h-16 bg-[#1abc9c]'>
+    <div className='fixed w-full h-16 bg-[#1abc9c] md:w-[425px] z-50'>
       <div className='mx-auto h-16 items-center w-11/12 flex justify-between '>
         <HiUserGroup
           className='cursor-pointer'
@@ -78,7 +78,7 @@ export default function Navbargroup() {
             <Menu.Button>
             <GiHamburgerMenu size={30} color='white' id='btn-burger' />
             </Menu.Button>
-            <Menu.Items className='z-50 absolute right-0 shadow-lg top-16 w-40 bg-[#1abc9c]'>
+            <Menu.Items className='z-50 fixed right-0 shadow-lg top-16 w-40 bg-[#1abc9c] md:relative'>
               <Menu.Item>
                 {({ active }) => (
                   <div>
