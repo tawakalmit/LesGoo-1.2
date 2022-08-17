@@ -75,8 +75,8 @@ export default function Login() {
   }
 
   return (
-    <>
-      <div className='w-full h-auto mt-20 flex justify-center'>
+    <div className='bg-[#ecf0f1] border-0 h-full md:w-[425px] mx-auto border-2 border-[#2c3e50] pb-10 xl:h-screen'>
+      <div className='w-full h-auto pt-20 flex justify-center'>
       <Image 
         src='/logo.png'
         width={200}
@@ -126,6 +126,6 @@ export default function Login() {
           Sign In
         </button>
       </form>
-    </>
+    </div>
   );
 }
