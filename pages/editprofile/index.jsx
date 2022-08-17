@@ -113,7 +113,7 @@ export default function Editprofile() {
   };
 
   return (
-    <div>
+    <div className='bg-[#ecf0f1] border-0 h-full md:h-full w-[425px] mx-auto border-2 border-[#2c3e50] pb-10 lg:h-screen'>
       <Navbarback title={'Edit Profile'} />
       <div className='w-10/12 flex flex-col mx-auto items-center'>
       
