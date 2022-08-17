@@ -55,7 +55,7 @@ export default function Navbar(props) {
             <Menu.Button>
               <GiHamburgerMenu size={30} color='white' id='btn-burger' />
             </Menu.Button>
-            <Menu.Items className='absolute right-0 top-16 w-32 bg-[#1abc9c] z-50 md:relative -right-4 top-12'>
+            <Menu.Items className='absolute right-0 top-16 w-32 bg-[#1abc9c] z-50 md:relative'>
               <Menu.Item>
                 {({ active }) => (
                   <div>
