@@ -66,7 +66,7 @@ export default function Head({groupname, groupid, participants }) {
         <div>
             <Menu>
               <Menu.Button><GiHamburgerMenu id='des-option' size={25} color='white'/></Menu.Button>
-              <Menu.Items className='absolute right-0 top-14 w-40 bg-[#f1c40f] z-10'>
+              <Menu.Items className='absolute right-0 top-14 w-40 bg-[#f1c40f] z-10 md:right-48 lg:right-80 xl:inset-x-1/2 2xl:inset-x-1/2'>
                 <Menu.Item>
                   {({ active }) => (
                     <div>
