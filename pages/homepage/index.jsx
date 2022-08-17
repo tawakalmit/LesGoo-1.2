@@ -9,7 +9,7 @@ export default function Homepage() {
   const route = useRouter();
 
   return (
-    <div className='bg-[#ecf0f1] border-0 md:h-full w-[425px] mx-auto border-2 border-[#2c3e50] pb-10'>
+    <div className='bg-[#ecf0f1] border-0 h-full md:w-[425px] mx-auto border-2 border-[#2c3e50] pb-10 xl:h-screen'>
       <Navbar />
       <div onClick={(e) => route.push('/newgroup')} className='flex items-center justify-center w-[330px] h-auto bg-[#1abc9c] mx-auto mt-5 rounded-lg cursor-pointer'>
         <div className='w-auto h-auto p-4 flex flex-col z-10'>
