@@ -52,8 +52,8 @@ export default function Register() {
   };
 
   return (
-    <>
-      <h1 className='text-4xl font-semibold text-center mt-20'>Register</h1>
+    <div className='bg-[#ecf0f1] border-0 h-full md:w-[425px] mx-auto border-2 border-[#2c3e50] pb-10 xl:h-screen'>
+      <h1 className='text-4xl font-semibold text-center pt-20'>Register</h1>
       <form onSubmit={handleSubmitSignUp} className='mt-12 mx-auto w-8/12'>
         <div className='mb-5'>
           <label className='ml-2 font-semibold text-gray-700'>USER NAME</label>
@@ -111,6 +111,6 @@ export default function Register() {
           </Link>
         </div>
       </form>
-    </>
+    </div>
   );
 }
