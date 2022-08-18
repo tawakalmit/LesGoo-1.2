@@ -4,8 +4,17 @@ import { FiSend } from 'react-icons/fi';
 import { GoAlert } from 'react-icons/go';
 import Swal from 'sweetalert2';
 
+import { getCookie } from 'cookies-next';
+
 export default function Footbar(props) {
-  const [message, setMessage] = useState({ message: '' });
+  const token = getCookie('usr_token');
+  const group_id = getCookie('usr_group_id');
+
+  const [message, setMessage] = useState({
+    message: '',
+    isSOS: false,
+    group_id: group_id,
+  });
 
   const handleChangeMessage = (e) => {
     setMessage(() => ({ message: e.target.value }));
@@ -37,7 +46,30 @@ export default function Footbar(props) {
     })
   };
 
-  const handleClickSend = (e) => {};
+  const handleClickSend = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/chats`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(message),
+        }
+      );
+      const data = await response.json();
+      if (response.status < 300) {
+        alert('success');
+      } else if (response.status >= 300) {
+        throw data.message;
+      }
+    } catch (error) {
+      console.log('error:', error);
+      alert(error);
+    }
+  };
   return (
     <div className='w-full shadow-2xl shadow-black fixed bottom-0 h-16 bg-[#1abc9c] mx-auto md:w-[425px]'>
       <div className='mx-auto  h-16 items-center w-11/12 flex justify-between '>

@@ -9,7 +9,6 @@ import { current } from '@reduxjs/toolkit';
 
 import Image from 'next/image';
 
-
 export default function Login() {
   const [dataLogin, setDataLogin] = useState({
     username: '',
@@ -19,6 +18,7 @@ export default function Login() {
 
   const router = useRouter();
   const token = getCookie('usr_token');
+  const group_id = getCookie('usr_group_id');
 
   useEffect(() => {
     const getFcmToken = async () => {
@@ -59,8 +59,12 @@ export default function Login() {
         // console.log(data.data.token);
         setCookie('usr_token', data.data.token);
         setCookie('usr_username', dataLogin.username);
-        console.log(dataLogin);
-        router.push('/');
+        setCookie('usr_group_id', response.group_id);
+        if (group_id) {
+          router.push(`/group/${group_id}`);
+        } else {
+          router.push('/');
+        }
       } else if (response.status >= 300) {
         throw data.message;
       }
@@ -87,7 +91,10 @@ export default function Login() {
         Make your roadtrip easier
       </p>
       <h3 className='text-4xl font-semibold text-center mt-20'>Sign In</h3>
-      <form onSubmit={handleSubmitSignIn} className='mt-12 mx-auto w-8/12 mb-20'>
+      <form
+        onSubmit={handleSubmitSignIn}
+        className='mt-12 mx-auto w-8/12 mb-20'
+      >
         <div>
           <label className='ml-2 font-semibold text-gray-700'>USER NAME</label>
           <input

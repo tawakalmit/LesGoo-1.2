@@ -20,8 +20,9 @@ function Notification({ children }) {
     async function setToken() {
       try {
         const token = await firebaseCloudMessaging.init();
+        // console.log('token', token);
         if (token) {
-          console.log('token', token);
+          // console.log('token', token);
           getMessage();
         }
       } catch (error) {
