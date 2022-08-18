@@ -2,6 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import Navbarback from '../../components/navbarback';
 import { getCookie } from 'cookies-next';
+import { useRouter } from 'next/router';
 
 export default function JoinGroup() {
   const [join, setJoin] = useState({
@@ -15,10 +16,10 @@ export default function JoinGroup() {
   const router = useRouter();
 
   const handleChangeGroupId = (e) => {
-    setRegister((state) => ({ ...state, group_id: e.target.value }));
+    setJoin((state) => ({ ...state, group_id: e.target.value }));
   };
 
-  const handleSubmitSignIn = async (e) => {
+  const handleSubmitJoin = async (e) => {
     e.preventDefault();
     try {
       const response = await fetch(
@@ -33,6 +34,7 @@ export default function JoinGroup() {
       );
       const data = await response.json();
       if (response.status < 300) {
+        router.push(`/group/${join.group_id}`);
       } else if (response.status >= 300) {
         throw data.message;
       }
@@ -45,7 +47,7 @@ export default function JoinGroup() {
   return (
     <>
       <Navbarback title={'Join Group'} />
-      <form onSubmit={handleJoin} className='w-10/12 mx-auto mt-5'>
+      <form onSubmit={handleSubmitJoin} className='w-10/12 mx-auto mt-5'>
         <input
           onChange={handleChangeGroupId}
           id='input-groupid'
