@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react'
 import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
 import "leaflet/dist/leaflet.css"
+import Head from 'next/head'
 
 import { CgProfile } from 'react-icons/cg';
 import { BsFillArrowRightCircleFill } from 'react-icons/bs';
@@ -65,6 +66,10 @@ export default function Newgroup() {
 
   return(
     <div className='bg-[#ecf0f1] border-0 md:h-full w-[425px] mx-auto border-2 border-[#2c3e50] pb-10'>
+      <Head>
+        <title>LesGoo | New Group</title>
+        <link rel="icon" href="/icon.png" />
+      </Head>
       <Navbarback title={'New Group'} />
       <form onSubmit={(e) => handleSubmit(e)}>
         <div className='w-full h-32 bg-white'>

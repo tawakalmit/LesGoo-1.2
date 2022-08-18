@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic';
 import Chat from '../../components/chat ';
 import { getCookie } from 'cookies-next';
 import Swal from 'sweetalert2';
+import Head from 'next/head';
 
 export default function Group() {
 
@@ -41,6 +42,10 @@ export default function Group() {
 
   return (
     <>
+      <Head>
+        <title>LesGoo | Group</title>
+        <link rel="icon" href="/icon.png" />
+      </Head>
       <div className='bg-slate-500 border-0 min-h-screen md:w-[425px] mx-auto border-2 border-[#2c3e50] pb-10'>
         <Navbargroup />
         <div>

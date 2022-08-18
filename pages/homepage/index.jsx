@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import Head from 'next/head';
 
 import Navbar from '../../components/navbar';
 import Image from 'next/image';
@@ -17,6 +18,10 @@ export default function Homepage() {
 
   return (
     <div className='bg-[#ecf0f1] border-0 h-full md:w-[425px] mx-auto border-2 border-[#2c3e50] pb-10 xl:h-screen'>
+      <Head>
+        <title>LesGoo | Make Your Roadtrip Easier</title>
+        <link rel="icon" href="/icon.png" />
+      </Head>
       <Navbar />
       <div onClick={(e) => route.push('/newgroup')} className='flex items-center justify-center w-[330px] h-auto bg-[#1abc9c] mx-auto mt-5 rounded-lg cursor-pointer'>
         <div className='w-auto h-auto p-4 flex flex-col z-10'>

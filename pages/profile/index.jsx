@@ -3,6 +3,7 @@ import { MdArrowBack } from 'react-icons/md';
 import { CgProfile } from 'react-icons/cg';
 import { useRouter } from 'next/router';
 import Navbarback from '../../components/navbarback';
+import Head from 'next/head';
 
 export default function Profile() {
   const route = useRouter();
@@ -48,6 +49,10 @@ export default function Profile() {
 
   return (
     <div className='bg-[#ecf0f1] border-0 h-screen md:h-screen w-[425px] mx-auto border-2 border-[#2c3e50] pb-10'>
+      <Head>
+        <title>LesGoo | Profile</title>
+        <link rel="icon" href="/icon.png" />
+      </Head>
       <Navbarback title={'Profile'} />
       <div>
         <div className='w-10/12 flex flex-col mx-auto items-center'>
