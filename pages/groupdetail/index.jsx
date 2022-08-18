@@ -6,7 +6,7 @@ import Contact from '../../components/contact'
 
 export default function GroupDetail() {
   return (
-    <div>
+    <div className='bg-[#ecf0f1] border-0 h-full md:w-[425px] mx-auto border-2 border-[#2c3e50] pb-10 lg:min-h-screen xl:h-screen'>
         <Head
         groupname='Road Trip Rinjani'
         groupid='hhdbsbhkjv'

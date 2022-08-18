@@ -15,7 +15,7 @@ export default function Getmap({
 
   return (
     <MapContainer
-      className='h-96 w-full z-10 fixed top-18'
+      className='fixed top-16 h-52 w-[425px] z-10'
       center={[center.lat, center.lng]}
       zoom={13}
       scrollWheelZoom={false}

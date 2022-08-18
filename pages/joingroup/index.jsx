@@ -45,7 +45,7 @@ export default function JoinGroup() {
   };
 
   return (
-    <>
+    <div className='bg-[#ecf0f1] border-0 h-screen md:h-screen w-[425px] mx-auto border-2 border-[#2c3e50] pb-10'>
       <Navbarback title={'Join Group'} />
       <form onSubmit={handleSubmitJoin} className='w-10/12 mx-auto mt-5'>
         <input
@@ -65,6 +65,6 @@ export default function JoinGroup() {
           </button>
         </div>
       </form>
-    </>
+    </div>
   );
 }

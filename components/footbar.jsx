@@ -71,7 +71,7 @@ export default function Footbar(props) {
     }
   };
   return (
-    <div className='w-full shadow-2xl shadow-black fixed left-0 bottom-0 h-16 bg-[#1abc9c] '>
+    <div className='w-full shadow-2xl shadow-black fixed bottom-0 h-16 bg-[#1abc9c] mx-auto md:w-[425px]'>
       <div className='mx-auto  h-16 items-center w-11/12 flex justify-between '>
         <GoAlert
           onClick={handleClickSos}
