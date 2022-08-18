@@ -2,10 +2,11 @@ import { useState, useEffect } from 'react';
 import { getCookie } from 'cookies-next';
 
 export default function Chat() {
-  const [chats, setchats] = useState({ idgroup: '', groupname: '', chats: [] });
+  const [chats, setchats] = useState({ status: '', groupname: '', chats: [] });
 
   const token = getCookie('usr_token');
   const username = getCookie('usr_username');
+  const group_id = getCookie('usr_group_id');
 
   useEffect(() => {
     fetchData();
@@ -17,6 +18,7 @@ export default function Chat() {
       headers: {
         Authorization: `Bearer ${token}}`,
       },
+      body: JSON.stringify(group_id),
     };
     fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/group/chats`, requestOptions)
       .then((response) => response.json())
@@ -25,7 +27,7 @@ export default function Chat() {
         console.log(data);
         setchats((state) => ({
           ...state,
-          idgroup: data.id,
+          status: data.status,
           groupname: data.name,
           chats: data.chats,
         }));

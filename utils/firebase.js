@@ -4,6 +4,7 @@ import localforage from 'localforage';
 
 const firebaseCloudMessaging = {
   init: async () => {
+    const tokenInLocalForage = await localforage.getItem('fcm_token');
     if (!getApps.length) {
       // Initialize the Firebase app with the credentials
       const app = initializeApp({
@@ -33,7 +34,6 @@ const firebaseCloudMessaging = {
             vapidKey:
               'BPAIPOgQpgps0QYapK1uIryNzNBW_1NRNxnC9eFiEGT5oCfRW-hi895lepqCl12cmwkh84FzeFFv6JF4eUvt6qE',
           });
-
           // Set token in our local storage
           if (fcm_token) {
             localforage.setItem('fcm_token', fcm_token);
