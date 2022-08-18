@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import { FiSend } from 'react-icons/fi';
 import { GoAlert } from 'react-icons/go';
+import Swal from 'sweetalert2';
 
 import { getCookie } from 'cookies-next';
 
@@ -19,7 +20,31 @@ export default function Footbar(props) {
     setMessage(() => ({ message: e.target.value }));
   };
 
-  const handleClickSos = (e) => {};
+  const handleClickSos = (e) => {
+    let timerInterval
+    Swal.fire({
+      backdrop: `rgba(231, 76, 60, .7)`,
+      title: 'SOS Activated',
+      html:
+        '<strong></strong> seconds.<br/><br/> Dont worry, <br> Your group members are alerted.',
+      timer: 20000,
+      didOpen: () => {
+        const content = Swal.getHtmlContainer()
+        const $ = content.querySelector.bind(content)
+
+        Swal.showLoading()
+
+        timerInterval = setInterval(() => {
+          Swal.getHtmlContainer().querySelector('strong')
+            .textContent = (Swal.getTimerLeft() / 1000)
+              .toFixed(0)
+        }, 100)
+      },
+      willClose: () => {
+        clearInterval(timerInterval)
+      }
+    })
+  };
 
   const handleClickSend = async (e) => {
     e.preventDefault();
