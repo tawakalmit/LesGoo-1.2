@@ -1,6 +1,5 @@
 import React from 'react';
-import { MdArrowBack } from 'react-icons/md';
-import Link from 'next/link';
+import { useState } from 'react';
 import Navbarback from '../../components/navbarback';
 import { getCookie } from 'cookies-next';
 
