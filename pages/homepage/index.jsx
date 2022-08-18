@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 
 import Navbar from '../../components/navbar';
 import Image from 'next/image';
-import { setCookie, getCookie } from 'cookies-next';
+import { getCookie } from 'cookies-next';
 
 export default function Homepage() {
   const route = useRouter();

@@ -3,8 +3,12 @@ import Navbargroup from '../../components/navbargroup';
 import Footbar from '../../components/footbar';
 import dynamic from 'next/dynamic';
 import Chat from '../../components/chat ';
+import { getCookie } from 'cookies-next';
 
 export default function Group() {
+  const group_id = getCookie('usr_group_id');
+  const token = getCookie('usr_token');
+
   const Getmap = dynamic(() => import('../../components/getmap'), {
     ssr: false,
   });
@@ -21,11 +25,38 @@ export default function Group() {
   const [longitude, setLongitude] = useState({ lng: null });
 
   useEffect(() => {
+    fetchData();
     navigator.geolocation.getCurrentPosition(function (position) {
       setLatitude(position.coords.latitude);
       setLongitude(position.coords.longitude);
     });
   });
+
+  const fetchData = async () => {
+    var requestOptions = {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/group/${group_id}`,
+      requestOptions
+    )
+      .then((response) => response.json())
+      .then((result) => {
+        const { data } = result;
+        const { id, username, email, phone } = data;
+        setId(id);
+        setUsername(username);
+        setEmail(email);
+        setPhone(phone);
+      })
+      .catch((err) => {
+        alert(err.toString());
+      })
+      .finally(() => setLoading(false));
+  };
 
   return (
     <>
