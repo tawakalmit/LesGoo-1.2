@@ -9,7 +9,7 @@ import { CgProfile } from 'react-icons/cg'
 import { MdLogout } from 'react-icons/md'
 import { RiDeleteBin6Fill, RiLogoutCircleRFill } from 'react-icons/ri'
 
-export default function Head({groupname, groupid, participants }) {
+export default function Deshead({groupname, groupid, participants }) {
 
   const handleClickLeaveGroup = () => {
     var leave = {

@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { CgProfile } from 'react-icons/cg';
 import { useRouter } from 'next/router';
 import Navbarback from '../../components/navbarback';
+import Head from 'next/head';
 
 export default function Editprofile() {
   const inputRef = useRef(null);
@@ -114,6 +115,10 @@ export default function Editprofile() {
 
   return (
     <div className='bg-[#ecf0f1] border-0 h-full md:h-full w-[425px] mx-auto border-2 border-[#2c3e50] pb-10 lg:h-screen'>
+      <Head>
+        <title>LesGoo | Edit Profile</title>
+        <link rel="icon" href="/icon.png" />
+      </Head>
       <Navbarback title={'Edit Profile'} />
       <div className='w-10/12 flex flex-col mx-auto items-center'>
       
