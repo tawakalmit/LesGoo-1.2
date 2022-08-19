@@ -6,13 +6,12 @@ importScripts(
 );
 
 firebase.initializeApp({
-  apiKey: 'AIzaSyDcB6ambJLgtxH-xN6YbkICNbHEi_O9bNg',
-  authDomain: 'lesgoo-ae65d.firebaseapp.com',
-  projectId: 'lesgoo-ae65d',
-  storageBucket: 'lesgoo-ae65d.appspot.com',
-  messagingSenderId: '98773111167',
-  appId: '1:98773111167:web:c54127c5fb251d1fc50a4a',
-  measurementId: 'G-58GTT63H15',
+  apiKey: 'AIzaSyC_j7Kz85dhaIS9JIiE2CnVjUJqhNbmiQU',
+  authDomain: 'coba-4ea21.firebaseapp.com',
+  projectId: 'coba-4ea21',
+  storageBucket: 'coba-4ea21.appspot.com',
+  messagingSenderId: '895633821591',
+  appId: '1:895633821591:web:74aa2598fb3c8ca756fed2',
 });
 
 const messaging = firebase.messaging();

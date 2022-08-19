@@ -3,8 +3,18 @@ import { onMessage, getMessaging } from 'firebase/messaging';
 import { firebaseCloudMessaging } from '../utils/firebase';
 import { ToastContainer, toast } from 'react-toastify';
 import { useRouter } from 'next/router';
+import { useDispatch, useSelector } from 'react-redux';
+import { setChats } from '../redux/chat';
+import { getCookie } from 'cookies-next';
 
 function Notification({ children }) {
+  const chats = useSelector((state) => state.chats.chats);
+
+  const group_id = getCookie('usr_group_id');
+  const token = getCookie('usr_token');
+
+  const dispatch = useDispatch();
+
   const router = useRouter();
   useEffect(() => {
     setToken();
@@ -20,7 +30,7 @@ function Notification({ children }) {
     async function setToken() {
       try {
         const token = await firebaseCloudMessaging.init();
-        // console.log('token', token);
+        // console.log('token', token)
         if (token) {
           // console.log('token', token);
           getMessage();
@@ -42,6 +52,29 @@ function Notification({ children }) {
 
     onMessage(messaging, (message) => {
       console.log('Message received. ', message);
+
+      var requestOptions = {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          group_id: group_id,
+        }),
+      };
+      fetch(
+        'https://virtserver.swaggerhub.com/faqihassyfa/LesGoo/1.0.0/group/chats',
+        requestOptions
+      )
+        .then((response) => response.json())
+        .then((result) => {
+          const { data } = result;
+          dispatch(setChats({ chats: data.chats }));
+        })
+        .catch((err) => {
+          alert(err.toString());
+        })
+        .finally();
       toast(
         <div onClick={() => handleClickPushNotification(message?.data?.url)}>
           <h5>{message?.notification?.title}</h5>
