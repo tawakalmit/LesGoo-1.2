@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import Navbarback from '../../components/navbarback';
 import { getCookie } from 'cookies-next';
@@ -15,6 +15,12 @@ export default function JoinGroup() {
   const token = getCookie('usr_token');
 
   const router = useRouter();
+
+  useEffect(() => {
+    if(!token) {
+      router.push('login');
+    }
+  })
 
   const handleChangeGroupId = (e) => {
     setJoin((state) => ({ ...state, group_id: e.target.value }));
