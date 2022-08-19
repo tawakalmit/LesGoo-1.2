@@ -8,9 +8,11 @@ import Head from 'next/head';
 export default function JoinGroup() {
   const [join, setJoin] = useState({
     group_id: '',
-    latitude: '',
-    longitude: '',
+    latitude: latitude,
+    longitude: longitude,
   });
+  const [latitude, setLatitude] = useState(null);
+  const [longitude, setLongitude] = useState(null);
 
   const token = getCookie('usr_token');
 
@@ -22,6 +24,13 @@ export default function JoinGroup() {
     }
   })
 
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(function (position) {
+      setLatitude(position.coords.latitude);
+      setLongitude(position.coords.longitude);
+    });
+  })
+
   const handleChangeGroupId = (e) => {
     setJoin((state) => ({ ...state, group_id: e.target.value }));
   };
@@ -30,7 +39,7 @@ export default function JoinGroup() {
     e.preventDefault();
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/join`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/group/join`,
         {
           method: 'POST',
           headers: {
