@@ -3,8 +3,10 @@ import { CgProfile } from 'react-icons/cg';
 import { useRouter } from 'next/router';
 import Navbarback from '../../components/navbarback';
 import Head from 'next/head';
+import { getCookie } from 'cookies-next';
 
 export default function Editprofile() {
+  const token = getCookie('usr_token');
   const inputRef = useRef(null);
   const route = useRouter();
   const [username, setUsername] = useState('');
@@ -22,6 +24,10 @@ export default function Editprofile() {
       return;
     }
   }
+
+  useEffect(() => {
+    route.push('/login');
+  })
 
   useEffect(() => {
     fetchData();

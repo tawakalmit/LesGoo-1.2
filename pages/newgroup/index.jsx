@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
 import "leaflet/dist/leaflet.css"
 import Head from 'next/head'
+import { getCookie } from 'cookies-next';
 
 import { CgProfile } from 'react-icons/cg';
 import { BsFillArrowRightCircleFill } from 'react-icons/bs';
@@ -13,17 +14,24 @@ export default function Newgroup() {
         ssr: false
       });
     const route = useRouter();
+    const token = getCookie('usr_token');
     const [latitude, setLatitude] = useState(null);
     const [longitude, setLongitude] = useState(null);
-    const [objSubmit, setObjSubmit] = useState("")
-    const [startdate, setStartdate] = useState("")
-    const [enddate, setEnddate] = useState("")
+    const [objSubmit, setObjSubmit] = useState("");
+    const [startdate, setStartdate] = useState("");
+    const [enddate, setEnddate] = useState("");
     const [groupname, setGroupname] = useState("");
     const [groupdes, setGroupdes] = useState("");
     const [groupimg, setGroupimg] = useState("");
     const [location, setLocation] = useState({ lat: -6.7169157, lng: 107.0296782});
     const [destination, setDestination] = useState({ lat: -6.7169157, lng: 107.0296782});
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+      if(!token){
+        route.push('/login');
+      }
+    })
     
     useEffect(()=> {
         navigator.geolocation.getCurrentPosition(function(position) {
