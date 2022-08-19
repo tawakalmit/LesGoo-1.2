@@ -4,14 +4,22 @@ import { CgProfile } from 'react-icons/cg';
 import { useRouter } from 'next/router';
 import Navbarback from '../../components/navbarback';
 import Head from 'next/head';
+import { getCookie } from 'cookies-next';
 
 export default function Profile() {
+  const token = getCookie('usr_token');
   const route = useRouter();
   const [id, setId] = useState('');
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if(!token) {
+      route.push('login');
+    }
+  })
 
   useEffect(() => {
     fetchData();
