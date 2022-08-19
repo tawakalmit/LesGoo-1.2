@@ -13,6 +13,10 @@ export default function JoinGroup() {
 
   const token = getCookie('usr_token');
 
+  if (!token) {
+    router.push('/login');
+  }
+
   const router = useRouter();
 
   useEffect(() => {

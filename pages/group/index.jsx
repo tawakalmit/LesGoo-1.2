@@ -5,16 +5,25 @@ import dynamic from 'next/dynamic';
 import Chat from '../../components/chat ';
 import { getCookie } from 'cookies-next';
 import Swal from 'sweetalert2';
+import { useRouter } from 'next/router';
 
 export default function Group() {
+  const token = getCookie('usr_token');
+
+  const router = useRouter();
+
+  if (!token) {
+    router.push('/login');
+  }
 
   const [alerted, setAlerted] = useState(false);
 
-  if(alerted) {
-    Swal.fire(
-      {backdrop: `rgba(231, 76, 60, .7)`,
+  if (alerted) {
+    Swal.fire({
+      backdrop: `rgba(231, 76, 60, .7)`,
       title: 'ALERT',
-      html: 'there are members left behind'})
+      html: 'there are members left behind',
+    });
   }
 
   const Getmap = dynamic(() => import('../../components/getmap'), {

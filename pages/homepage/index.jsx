@@ -10,9 +10,14 @@ export default function Homepage() {
   const route = useRouter();
 
   const group_id = getCookie('usr_group_id');
+  const token = getCookie('usr_token');
 
   if (group_id) {
     route.push(`/group/${group_id}`);
+  }
+
+  if (!token) {
+    route.push('/login');
   }
 
   return (

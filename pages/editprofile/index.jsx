@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { CgProfile } from 'react-icons/cg';
 import { useRouter } from 'next/router';
 import Navbarback from '../../components/navbarback';
+import { getCookie } from 'cookies-next';
 
 export default function Editprofile() {
   const inputRef = useRef(null);
@@ -10,17 +11,22 @@ export default function Editprofile() {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [loading, setLoading] = useState(false);
+  const token = getCookie('usr_token');
+
+  if (!token) {
+    route.push('/login');
+  }
 
   const handleImage = () => {
     inputRef.current.click();
-  }
+  };
 
-  const handleFileChange = event => {
+  const handleFileChange = (event) => {
     const fileObj = event.target.files && event.target.files[0];
-    if(!fileObj) {
+    if (!fileObj) {
       return;
     }
-  }
+  };
 
   useEffect(() => {
     fetchData();
@@ -116,7 +122,6 @@ export default function Editprofile() {
     <div>
       <Navbarback title={'Edit Profile'} />
       <div className='w-10/12 flex flex-col mx-auto items-center'>
-      
         <form
           className='mt-12 mx-auto w-8/12'
           onSubmit={(e) => handleSubmit(e)}
@@ -124,21 +129,21 @@ export default function Editprofile() {
           <div>
             <div onClick={handleImage}>
               <CgProfile
-              id='edit-image'
-              color='#2c3e50'
-              size={70}
-              className='mb-10 mx-auto'
+                id='edit-image'
+                color='#2c3e50'
+                size={70}
+                className='mb-10 mx-auto'
               />
             </div>
-            
+
             <input
-              style={{display: 'none'}}
+              style={{ display: 'none' }}
               ref={inputRef}
-              type="file"
+              type='file'
               onChange={handleFileChange}
             />
           </div>
-          
+
           <div className='mb-5'>
             <label className='ml-2 font-semibold text-gray-700'>
               USER NAME

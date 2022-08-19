@@ -3,6 +3,7 @@ import { MdArrowBack } from 'react-icons/md';
 import { CgProfile } from 'react-icons/cg';
 import { useRouter } from 'next/router';
 import Navbarback from '../../components/navbarback';
+import { getCookie } from 'cookies-next';
 
 export default function Profile() {
   const route = useRouter();
@@ -11,6 +12,11 @@ export default function Profile() {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [loading, setLoading] = useState(false);
+  const token = getCookie('usr_token');
+
+  if (!token) {
+    route.push('/login');
+  }
 
   useEffect(() => {
     fetchData();
