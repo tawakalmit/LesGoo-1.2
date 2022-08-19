@@ -1,20 +1,27 @@
-import React from 'react';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
+import React, { useEffect } from 'react';
+import { Router, useRouter } from 'next/router';
 import Head from 'next/head';
 
 import Navbar from '../../components/navbar';
 import Image from 'next/image';
 import { getCookie } from 'cookies-next';
+import Swal from 'sweetalert2';
 
 export default function Homepage() {
   const route = useRouter();
 
   const group_id = getCookie('usr_group_id');
+  const token = getCookie('usr_token');
 
-  if (group_id) {
-    route.push(`/group/${group_id}`);
-  }
+  useEffect (() => {
+    if(!token){
+      route.push("login")
+    }
+    
+    if (group_id) {
+      route.push(`/group/${group_id}`);
+    }
+  })
 
   return (
     <div className='bg-[#ecf0f1] border-0 h-full md:w-[425px] mx-auto border-2 border-[#2c3e50] pb-10 xl:h-screen'>
