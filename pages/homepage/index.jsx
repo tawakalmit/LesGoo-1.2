@@ -17,14 +17,14 @@ export default function Homepage() {
     if(!token){
       route.push("login")
     }
-    
+
     if (group_id) {
       route.push(`/group/${group_id}`);
     }
   })
 
   return (
-    <div className='bg-[#ecf0f1] border-0 h-full md:w-[425px] mx-auto border-2 border-[#2c3e50] pb-10 xl:h-screen'>
+    <div className='bg-[#ecf0f1] border-0 h-full md:w-[425px] h-fit mx-auto border-2 border-[#2c3e50] pb-10 xl:h-fit'>
       <Head>
         <title>LesGoo | Make Your Roadtrip Easier</title>
         <link rel="icon" href="/icon.png" />
