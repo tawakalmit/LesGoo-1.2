@@ -6,13 +6,13 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 
 export default function JoinGroup() {
+  const [latitude, setLatitude] = useState(null);
+  const [longitude, setLongitude] = useState(null);
   const [join, setJoin] = useState({
     group_id: '',
     latitude: latitude,
     longitude: longitude,
   });
-  const [latitude, setLatitude] = useState(null);
-  const [longitude, setLongitude] = useState(null);
 
   const token = getCookie('usr_token');
 
