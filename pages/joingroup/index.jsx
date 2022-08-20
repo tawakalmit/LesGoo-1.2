@@ -1,20 +1,19 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import Navbarback from '../../components/navbarback';
-import { getCookie } from 'cookies-next';
+import { getCookie, setCookie } from 'cookies-next';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 
 export default function JoinGroup() {
-  const [latitude, setLatitude] = useState(null);
-  const [longitude, setLongitude] = useState(null);
   const [join, setJoin] = useState({
     group_id: '',
-    latitude: latitude,
-    longitude: longitude,
+    latitude: null,
+    longitude: null,
   });
 
   const token = getCookie('usr_token');
+  const group_id = getCookie('usr_group_id');
 
   const router = useRouter();
 
@@ -26,10 +25,13 @@ export default function JoinGroup() {
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(function (position) {
-      setLatitude(position.coords.latitude);
-      setLongitude(position.coords.longitude);
+      setJoin((state) => ({
+        ...state,
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude,
+      }));
     });
-  });
+  }, []);
 
   const handleChangeGroupId = (e) => {
     setJoin((state) => ({ ...state, group_id: e.target.value }));
@@ -44,12 +46,14 @@ export default function JoinGroup() {
           method: 'POST',
           headers: {
             Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
           },
           body: JSON.stringify(join),
         }
       );
       const data = await response.json();
       if (response.status < 300) {
+        setCookie('usr_group_id', join.group_id);
         router.push(`/group/${join.group_id}`);
       } else if (response.status >= 300) {
         throw data.message;
