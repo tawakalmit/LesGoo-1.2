@@ -142,7 +142,8 @@ export default function Newgroup() {
           location={start_dest}
           draggable={true}
           onDragMarker={(e) => {
-              handleChange(e.target, "start_dest");
+              console.log(e);
+              handleChange(e, "start_dest");
               let loc = { lat: e.lat, lng: e.lng };
               setStart_dest(loc);
               console.log("start", start_dest)
@@ -160,7 +161,7 @@ export default function Newgroup() {
           location={final_dest}
           draggable={true}
           onDragMarker={(e) => {
-              handleChange(e.target, "final_dest");
+              handleChange(e, "final_dest");
               let loc = { lat: e.lat, lng: e.lng };
               setFinal_dest(loc);
               console.log("finish", final_dest)
