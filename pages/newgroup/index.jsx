@@ -5,6 +5,7 @@ import "leaflet/dist/leaflet.css"
 import Head from 'next/head'
 import { getCookie } from 'cookies-next';
 import Image from 'next/image'
+import Swal from 'sweetalert2'
 
 import { CgProfile } from 'react-icons/cg';
 import { BsFillArrowRightCircleFill } from 'react-icons/bs';
@@ -18,7 +19,7 @@ export default function Newgroup() {
     const token = getCookie('usr_token');
     const [latitude, setLatitude] = useState(null);
     const [longitude, setLongitude] = useState(null);
-    const [objSubmit, setObjSubmit] = useState("");
+    const [objSubmit, setObjSubmit] = useState({});
     const [start_date, setStart_date] = useState("");
     const [end_date, setEnd_date] = useState("");
     const [name, setName] = useState("");
@@ -42,7 +43,6 @@ export default function Newgroup() {
       })
 
       const handleSubmit = async (e) => {
-        alert("group made")
         setLoading(true);
         e.preventDefault();
         const formData = new FormData();
@@ -60,8 +60,8 @@ export default function Newgroup() {
         fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/group`, requestOptions)
           .then((response) => response.json())
           .then((result) => {
-            console.log(result)
-            alert("message");
+            const {message} = result;
+            Swal.fire(message);
             setObjSubmit({});
           })
           .catch((error) => console.log("error", error))
@@ -74,6 +74,18 @@ export default function Newgroup() {
         setObjSubmit(temp);
       };
 
+      const handlePosition = (value, key) => {
+        let temp = { ...objSubmit };
+        temp[key] = value;
+        setObjSubmit(temp);
+      };
+
+      const handleCoordChange = (value, key) => {
+        let temp = { ...objSubmit };
+        temp[key] = value;
+        setObjSubmit(temp);
+      };
+
   return(
     <div className='bg-[#ecf0f1] border-0 md:h-full w-[425px] mx-auto border-2 border-[#2c3e50] pb-10'>
       <Head>
@@ -81,7 +93,9 @@ export default function Newgroup() {
         <link rel="icon" href="/icon.png" />
       </Head>
       <Navbarback title={'New Group'} />
-      <form onSubmit={(e) => handleSubmit(e)}>
+      <form onSubmit={(e) => {
+        handleSubmit(e);
+      }}>
         <div className='w-full h-fit bg-white'>
           <div className='w-10/12 mx-auto flex justify-around'>
             <Image 
@@ -123,12 +137,12 @@ export default function Newgroup() {
         <div className='w-full mt-10 h-auto bg-white'>
           <h2 className='p-3'>Start Location</h2>
           <Map
-          onChange={(e) => handleChange(e.target.value, "start_dest")}
           popup_label="Start Location"
           center={start_dest}
           location={start_dest}
           draggable={true}
           onDragMarker={(e) => {
+              handleChange(e.target, "start_dest");
               let loc = { lat: e.lat, lng: e.lng };
               setStart_dest(loc);
               console.log("start", start_dest)
@@ -141,12 +155,12 @@ export default function Newgroup() {
         <div className='w-full mt-10 h-auto bg-white'>
           <h2 className='p-3'>Set Destination</h2>
           <Map
-          onChange={(e) => handleChange(e.target.value, "final_dest")}
           popup_label="Destination"
           center={final_dest}
           location={final_dest}
           draggable={true}
           onDragMarker={(e) => {
+              handleChange(e.target, "final_dest");
               let loc = { lat: e.lat, lng: e.lng };
               setFinal_dest(loc);
               console.log("finish", final_dest)
@@ -155,6 +169,23 @@ export default function Newgroup() {
           {"lat: " + final_dest.lat}
           <br />
           {"lng: " + final_dest.lng}
+        </div>
+        <div className='mt-10 w-full h-fit bg-white p-5'>
+          <p className='text-center text-xs mb-5'>Fill the button below to access your position</p>
+          <div className='flex w-fit mx-auto'>
+          <div className='w-24 flex justify-around'>
+            <input type="radio" onChange={(e) => {
+              handlePosition(latitude,"latitude");
+            }} />
+            <p>Latitude</p>
+          </div>
+          <div className='w-24 flex justify-around'>
+            <input type="radio" onChange={(e) => {
+              handlePosition(longitude,"longitude");
+            }} />
+            <p>Longitude</p>
+          </div>
+          </div>
         </div>
         <button className='w-full flex justify-end mt-10'>
           <BsFillArrowRightCircleFill id='btn-newgroup' size={40} color='#1abc9c' className='mr-5'/>

@@ -26,7 +26,7 @@ export default function Map({ center, draggable, onDragMarker, location, popup_l
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <Marker 
+        <Marker
         position={[
           location && location.lat ? location.lat : "",
           location && location.lng ? location.lng : "",
