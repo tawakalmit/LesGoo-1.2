@@ -63,7 +63,7 @@ function Notification({ children }) {
         }),
       };
       fetch(
-        'https://virtserver.swaggerhub.com/faqihassyfa/LesGoo/1.0.0/group/chats',
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/group/chats`,
         requestOptions
       )
         .then((response) => response.json())

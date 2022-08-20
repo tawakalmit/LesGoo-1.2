@@ -20,24 +20,22 @@ export default function Chat() {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify(group_id),
+      body: JSON.stringify({ group_id: group_id }),
     };
-    fetch(
-      'https://virtserver.swaggerhub.com/faqihassyfa/LesGoo/1.0.0/group/chats',
-      requestOptions
-    )
+    fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/group/chats`, requestOptions)
       .then((response) => response.json())
       .then((result) => {
         const { data } = result;
-        // console.log(data);
-        dispatch(
-          setChats({
-            status: data.status,
-            groupname: data.name,
-            chats: data.chats,
-          })
-        );
+        console.log(data);
+        // dispatch(
+        //   setChats({
+        //     status: data.status,
+        //     groupname: data.name,
+        //     chats: data.chats,
+        //   })
+        // );
       })
       .catch((err) => {
         alert(err.toString());
