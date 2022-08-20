@@ -36,7 +36,7 @@ export default function Editprofile() {
     var requestOptions = {
       method: 'GET',
       headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        Authorization: `Bearer ${token}`,
       },
     };
     fetch(
