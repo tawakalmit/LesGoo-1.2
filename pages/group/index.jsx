@@ -6,6 +6,7 @@ import Chat from '../../components/chat ';
 import { getCookie } from 'cookies-next';
 import Swal from 'sweetalert2';
 import { useRouter } from 'next/router';
+import Head from 'next/head';
 
 export default function Group() {
   const token = getCookie('usr_token');
@@ -50,7 +51,11 @@ export default function Group() {
 
   return (
     <>
-      <div className='bg-slate-500 h-screen'>
+      <Head>
+        <title>LesGoo | Group</title>
+        <link rel='icon' href='/icon.png' />
+      </Head>
+      <div className='bg-slate-500 border-0 min-h-screen md:w-[425px] mx-auto border-2 border-[#2c3e50] pb-10'>
         <Navbargroup />
         <div>
           <Getmap
@@ -62,7 +67,9 @@ export default function Group() {
             longitude={longitude}
           />
         </div>
-        <Chat />
+        <div className='pt-72'>
+          <Chat />
+        </div>
         <Footbar />
       </div>
     </>

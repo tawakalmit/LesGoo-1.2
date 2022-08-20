@@ -3,12 +3,15 @@ import { useState, useEffect } from 'react';
 import Navbarback from '../../components/navbarback';
 import { getCookie } from 'cookies-next';
 import { useRouter } from 'next/router';
+import Head from 'next/head';
 
 export default function JoinGroup() {
+  const [latitude, setLatitude] = useState(null);
+  const [longitude, setLongitude] = useState(null);
   const [join, setJoin] = useState({
     group_id: '',
-    latitude: '',
-    longitude: '',
+    latitude: latitude,
+    longitude: longitude,
   });
 
   const token = getCookie('usr_token');
@@ -20,12 +23,15 @@ export default function JoinGroup() {
   const router = useRouter();
 
   useEffect(() => {
+    if (!token) {
+      router.push('login');
+    }
+  });
+
+  useEffect(() => {
     navigator.geolocation.getCurrentPosition(function (position) {
-      setJoin((state) => ({
-        ...state,
-        latitude: position.coords.latitude,
-        longitude: position.coords.longitude,
-      }));
+      setLatitude(position.coords.latitude);
+      setLongitude(position.coords.longitude);
     });
   });
 
@@ -37,7 +43,7 @@ export default function JoinGroup() {
     e.preventDefault();
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/join`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/group/join`,
         {
           method: 'POST',
           headers: {
@@ -49,7 +55,6 @@ export default function JoinGroup() {
       const data = await response.json();
       if (response.status < 300) {
         router.push(`/group/${join.group_id}`);
-        console.log(join);
       } else if (response.status >= 300) {
         throw data.message;
       }
@@ -60,7 +65,11 @@ export default function JoinGroup() {
   };
 
   return (
-    <>
+    <div className='bg-[#ecf0f1] border-0 h-screen md:h-screen w-[425px] mx-auto border-2 border-[#2c3e50] pb-10'>
+      <Head>
+        <title>LesGoo | Join Group</title>
+        <link rel='icon' href='/icon.png' />
+      </Head>
       <Navbarback title={'Join Group'} />
       <form onSubmit={handleSubmitJoin} className='w-10/12 mx-auto mt-5'>
         <input
@@ -80,6 +89,6 @@ export default function JoinGroup() {
           </button>
         </div>
       </form>
-    </>
+    </div>
   );
 }

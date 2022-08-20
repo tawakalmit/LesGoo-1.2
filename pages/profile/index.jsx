@@ -3,20 +3,23 @@ import { MdArrowBack } from 'react-icons/md';
 import { CgProfile } from 'react-icons/cg';
 import { useRouter } from 'next/router';
 import Navbarback from '../../components/navbarback';
+import Head from 'next/head';
 import { getCookie } from 'cookies-next';
 
 export default function Profile() {
+  const token = getCookie('usr_token');
   const route = useRouter();
   const [id, setId] = useState('');
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [loading, setLoading] = useState(false);
-  const token = getCookie('usr_token');
 
-  if (!token) {
-    route.push('/login');
-  }
+  useEffect(() => {
+    if (!token) {
+      route.push('login');
+    }
+  });
 
   useEffect(() => {
     fetchData();
@@ -53,7 +56,11 @@ export default function Profile() {
   }
 
   return (
-    <div>
+    <div className='bg-[#ecf0f1] border-0 h-screen md:h-screen w-[425px] mx-auto border-2 border-[#2c3e50] pb-10'>
+      <Head>
+        <title>LesGoo | Profile</title>
+        <link rel='icon' href='/icon.png' />
+      </Head>
       <Navbarback title={'Profile'} />
       <div>
         <div className='w-10/12 flex flex-col mx-auto items-center'>

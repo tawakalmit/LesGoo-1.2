@@ -9,7 +9,7 @@ import { CgProfile } from 'react-icons/cg';
 import { MdLogout } from 'react-icons/md';
 import { RiDeleteBin6Fill, RiLogoutCircleRFill } from 'react-icons/ri';
 
-export default function Head({ groupname, groupid, participants }) {
+export default function Deshead({ groupname, groupid, participants }) {
   const handleClickLeaveGroup = () => {
     var leave = {
       method: 'POST',
@@ -69,7 +69,7 @@ export default function Head({ groupname, groupid, participants }) {
             <Menu.Button>
               <GiHamburgerMenu id='des-option' size={25} color='white' />
             </Menu.Button>
-            <Menu.Items className='absolute right-0 top-14 w-40 bg-[#05B08E] z-10 shadow-sm rounded-md shadow-green-700'>
+            <Menu.Items className='absolute right-0 top-14 w-40 bg-[#05B08E] z-10 md:right-48 lg:right-80 xl:inset-x-1/2 2xl:inset-x-1/2 shadow-sm rounded-md shadow-green-700'>
               <Menu.Item>
                 {({ active }) => (
                   <div>

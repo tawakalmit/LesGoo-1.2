@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 import 'leaflet/dist/leaflet.css';
+import Head from 'next/head';
 import { getCookie } from 'cookies-next';
+
 import { CgProfile } from 'react-icons/cg';
 import { BsFillArrowRightCircleFill } from 'react-icons/bs';
 import Navbarback from '../../components/navbarback';
@@ -11,7 +13,8 @@ export default function Newgroup() {
   const Map = dynamic(() => import('../../components/map'), {
     ssr: false,
   });
-  const router = useRouter();
+  const route = useRouter();
+  const token = getCookie('usr_token');
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
   const [objSubmit, setObjSubmit] = useState('');
@@ -29,11 +32,12 @@ export default function Newgroup() {
     lng: 107.0296782,
   });
   const [loading, setLoading] = useState(false);
-  const token = getCookie('usr_token');
 
-  if (!token) {
-    router.push('/login');
-  }
+  useEffect(() => {
+    if (!token) {
+      route.push('/login');
+    }
+  });
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(function (position) {
@@ -75,7 +79,11 @@ export default function Newgroup() {
   };
 
   return (
-    <div>
+    <div className='bg-[#ecf0f1] border-0 md:h-full w-[425px] mx-auto border-2 border-[#2c3e50] pb-10'>
+      <Head>
+        <title>LesGoo | New Group</title>
+        <link rel='icon' href='/icon.png' />
+      </Head>
       <Navbarback title={'New Group'} />
       <form onSubmit={(e) => handleSubmit(e)}>
         <div className='w-full h-32 bg-white'>
