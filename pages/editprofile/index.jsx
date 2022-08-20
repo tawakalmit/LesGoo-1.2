@@ -6,30 +6,29 @@ import Head from 'next/head';
 import { getCookie } from 'cookies-next';
 
 export default function Editprofile() {
-  const token = getCookie('usr_token');
   const inputRef = useRef(null);
   const route = useRouter();
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [loading, setLoading] = useState(false);
+  const token = getCookie('usr_token');
 
   const handleImage = () => {
     inputRef.current.click();
-  }
+  };
 
-  const handleFileChange = event => {
+  const handleFileChange = (event) => {
     const fileObj = event.target.files && event.target.files[0];
-    if(!fileObj) {
+    if (!fileObj) {
       return;
     }
-  }
+  };
 
   useEffect(() => {
-    route.push('/login');
-  })
-
-  useEffect(() => {
+    if (!token) {
+      route.push('/login');
+    }
     fetchData();
   });
 
@@ -37,7 +36,7 @@ export default function Editprofile() {
     var requestOptions = {
       method: 'GET',
       headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        Authorization: `Bearer ${token}`,
       },
     };
     fetch(
@@ -123,11 +122,10 @@ export default function Editprofile() {
     <div className='bg-[#ecf0f1] border-0 h-full md:h-full w-[425px] mx-auto border-2 border-[#2c3e50] pb-10 lg:h-screen'>
       <Head>
         <title>LesGoo | Edit Profile</title>
-        <link rel="icon" href="/icon.png" />
+        <link rel='icon' href='/icon.png' />
       </Head>
       <Navbarback title={'Edit Profile'} />
       <div className='w-10/12 flex flex-col mx-auto items-center'>
-      
         <form
           className='mt-12 mx-auto w-8/12'
           onSubmit={(e) => handleSubmit(e)}
@@ -135,21 +133,21 @@ export default function Editprofile() {
           <div>
             <div onClick={handleImage}>
               <CgProfile
-              id='edit-image'
-              color='#2c3e50'
-              size={70}
-              className='mb-10 mx-auto'
+                id='edit-image'
+                color='#2c3e50'
+                size={70}
+                className='mb-10 mx-auto'
               />
             </div>
-            
+
             <input
-              style={{display: 'none'}}
+              style={{ display: 'none' }}
               ref={inputRef}
-              type="file"
+              type='file'
               onChange={handleFileChange}
             />
           </div>
-          
+
           <div className='mb-5'>
             <label className='ml-2 font-semibold text-gray-700'>
               USER NAME

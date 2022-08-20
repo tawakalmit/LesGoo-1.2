@@ -5,17 +5,28 @@ import dynamic from 'next/dynamic';
 import Chat from '../../components/chat ';
 import { getCookie } from 'cookies-next';
 import Swal from 'sweetalert2';
+import { useRouter } from 'next/router';
 import Head from 'next/head';
 
 export default function Group() {
+  const token = getCookie('usr_token');
+
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!token) {
+      router.push('/login');
+    }
+  });
 
   const [alerted, setAlerted] = useState(false);
 
-  if(alerted) {
-    Swal.fire(
-      {backdrop: `rgba(231, 76, 60, .7)`,
+  if (alerted) {
+    Swal.fire({
+      backdrop: `rgba(231, 76, 60, .7)`,
       title: 'ALERT',
-      html: 'there are members left behind'})
+      html: 'there are members left behind',
+    });
   }
 
   const Getmap = dynamic(() => import('../../components/getmap'), {
@@ -44,7 +55,7 @@ export default function Group() {
     <>
       <Head>
         <title>LesGoo | Group</title>
-        <link rel="icon" href="/icon.png" />
+        <link rel='icon' href='/icon.png' />
       </Head>
       <div className='bg-slate-500 border-0 min-h-screen md:w-[425px] mx-auto border-2 border-[#2c3e50] pb-10'>
         <Navbargroup />
@@ -59,7 +70,7 @@ export default function Group() {
           />
         </div>
         <div className='pt-72'>
-        <Chat />
+          <Chat />
         </div>
         <Footbar />
       </div>
