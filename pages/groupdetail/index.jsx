@@ -18,11 +18,10 @@ export default function GroupDetail() {
   const token = getCookie('usr_token');
   const group_id = getCookie('usr_group_id');
 
-  if (!token) {
-    router.push('/login');
-  }
-
   useEffect(() => {
+    if (!token) {
+      router.push('/login');
+    }
     fetchData();
   }, []);
 

@@ -14,10 +14,6 @@ export default function Editprofile() {
   const [loading, setLoading] = useState(false);
   const token = getCookie('usr_token');
 
-  if (!token) {
-    route.push('/login');
-  }
-
   const handleImage = () => {
     inputRef.current.click();
   };
@@ -30,6 +26,9 @@ export default function Editprofile() {
   };
 
   useEffect(() => {
+    if (!token) {
+      route.push('/login');
+    }
     fetchData();
   });
 

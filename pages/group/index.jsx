@@ -13,9 +13,11 @@ export default function Group() {
 
   const router = useRouter();
 
-  if (!token) {
-    router.push('/login');
-  }
+  useEffect(() => {
+    if (!token) {
+      router.push('/login');
+    }
+  });
 
   const [alerted, setAlerted] = useState(false);
 
