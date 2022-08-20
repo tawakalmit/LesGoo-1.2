@@ -1,8 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { getCookie } from 'cookies-next';
+import { useDispatch, useSelector } from 'react-redux';
+import { setChats } from '../redux/chat';
 
 export default function Chat() {
-  const [chats, setchats] = useState({ status: '', groupname: '', chats: [] });
+  const chats = useSelector((state) => state.chats.chats);
+  const dispatch = useDispatch();
 
   const token = getCookie('usr_token');
   const username = getCookie('usr_username');
@@ -16,23 +19,25 @@ export default function Chat() {
     var requestOptions = {
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${token}}`,
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(group_id),
     };
-    fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/group/chats`, requestOptions)
+    fetch(
+      'https://virtserver.swaggerhub.com/faqihassyfa/LesGoo/1.0.0/group/chats',
+      requestOptions
+    )
       .then((response) => response.json())
       .then((result) => {
         const { data } = result;
-        console.log(data);
-        setchats((state) => ({
-          ...state,
-          status: data.status,
-          groupname: data.name,
-          chats: data.chats,
-        }));
-        console.log(username);
-        console.log(chats);
+        // console.log(data);
+        dispatch(
+          setChats({
+            status: data.status,
+            groupname: data.name,
+            chats: data.chats,
+          })
+        );
       })
       .catch((err) => {
         alert(err.toString());
@@ -42,7 +47,7 @@ export default function Chat() {
 
   return (
     <>
-      {chats.chats.map((chat) => {
+      {chats.map((chat) => {
         return (
           <div key={chat.id} className='p-2 mb-2'>
             <div

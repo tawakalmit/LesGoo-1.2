@@ -8,13 +8,12 @@ const firebaseCloudMessaging = {
     if (!getApps.length) {
       // Initialize the Firebase app with the credentials
       const app = initializeApp({
-        apiKey: 'AIzaSyDcB6ambJLgtxH-xN6YbkICNbHEi_O9bNg',
-        authDomain: 'lesgoo-ae65d.firebaseapp.com',
-        projectId: 'lesgoo-ae65d',
-        storageBucket: 'lesgoo-ae65d.appspot.com',
-        messagingSenderId: '98773111167',
-        appId: '1:98773111167:web:c54127c5fb251d1fc50a4a',
-        measurementId: 'G-58GTT63H15',
+        apiKey: 'AIzaSyC_j7Kz85dhaIS9JIiE2CnVjUJqhNbmiQU',
+        authDomain: 'coba-4ea21.firebaseapp.com',
+        projectId: 'coba-4ea21',
+        storageBucket: 'coba-4ea21.appspot.com',
+        messagingSenderId: '895633821591',
+        appId: '1:895633821591:web:74aa2598fb3c8ca756fed2',
       });
 
       try {
@@ -32,7 +31,7 @@ const firebaseCloudMessaging = {
           // Get new token from Firebase
           const fcm_token = await getToken(messaging, {
             vapidKey:
-              'BPAIPOgQpgps0QYapK1uIryNzNBW_1NRNxnC9eFiEGT5oCfRW-hi895lepqCl12cmwkh84FzeFFv6JF4eUvt6qE',
+              'BJoK_GPhjnD7b73jrE30uyV23uDHnamu7aMFZ1O848UqjAR0L6FgsA1Y0xP9rXHXW_zAwwPp1y4LnIXNRJ-pglc',
           });
           // Set token in our local storage
           if (fcm_token) {

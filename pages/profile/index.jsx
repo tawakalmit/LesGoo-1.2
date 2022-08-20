@@ -16,10 +16,10 @@ export default function Profile() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if(!token) {
+    if (!token) {
       route.push('login');
     }
-  })
+  });
 
   useEffect(() => {
     fetchData();
@@ -59,7 +59,7 @@ export default function Profile() {
     <div className='bg-[#ecf0f1] border-0 h-screen md:h-screen w-[425px] mx-auto border-2 border-[#2c3e50] pb-10'>
       <Head>
         <title>LesGoo | Profile</title>
-        <link rel="icon" href="/icon.png" />
+        <link rel='icon' href='/icon.png' />
       </Head>
       <Navbarback title={'Profile'} />
       <div>

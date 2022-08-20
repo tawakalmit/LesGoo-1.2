@@ -1,8 +1,8 @@
-import React, {useState, useEffect} from 'react'
-import { useRouter } from 'next/router'
-import dynamic from 'next/dynamic'
-import "leaflet/dist/leaflet.css"
-import Head from 'next/head'
+import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
+import dynamic from 'next/dynamic';
+import 'leaflet/dist/leaflet.css';
+import Head from 'next/head';
 import { getCookie } from 'cookies-next';
 
 import { CgProfile } from 'react-icons/cg';
@@ -10,73 +10,79 @@ import { BsFillArrowRightCircleFill } from 'react-icons/bs';
 import Navbarback from '../../components/navbarback';
 
 export default function Newgroup() {
-    const Map = dynamic(() => import('../../components/map'), {
-        ssr: false
-      });
-    const route = useRouter();
-    const token = getCookie('usr_token');
-    const [latitude, setLatitude] = useState(null);
-    const [longitude, setLongitude] = useState(null);
-    const [objSubmit, setObjSubmit] = useState("");
-    const [startdate, setStartdate] = useState("");
-    const [enddate, setEnddate] = useState("");
-    const [groupname, setGroupname] = useState("");
-    const [groupdes, setGroupdes] = useState("");
-    const [groupimg, setGroupimg] = useState("");
-    const [location, setLocation] = useState({ lat: -6.7169157, lng: 107.0296782});
-    const [destination, setDestination] = useState({ lat: -6.7169157, lng: 107.0296782});
-    const [loading, setLoading] = useState(false);
+  const Map = dynamic(() => import('../../components/map'), {
+    ssr: false,
+  });
+  const route = useRouter();
+  const token = getCookie('usr_token');
+  const [latitude, setLatitude] = useState(null);
+  const [longitude, setLongitude] = useState(null);
+  const [objSubmit, setObjSubmit] = useState('');
+  const [startdate, setStartdate] = useState('');
+  const [enddate, setEnddate] = useState('');
+  const [groupname, setGroupname] = useState('');
+  const [groupdes, setGroupdes] = useState('');
+  const [groupimg, setGroupimg] = useState('');
+  const [location, setLocation] = useState({
+    lat: -6.7169157,
+    lng: 107.0296782,
+  });
+  const [destination, setDestination] = useState({
+    lat: -6.7169157,
+    lng: 107.0296782,
+  });
+  const [loading, setLoading] = useState(false);
 
-    useEffect(() => {
-      if(!token){
-        route.push('/login');
-      }
-    })
-    
-    useEffect(()=> {
-        navigator.geolocation.getCurrentPosition(function(position) {
-          setLatitude(position.coords.latitude);
-          setLongitude(position.coords.longitude);
-        });
+  useEffect(() => {
+    if (!token) {
+      route.push('/login');
+    }
+  });
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(function (position) {
+      setLatitude(position.coords.latitude);
+      setLongitude(position.coords.longitude);
+    });
+  });
+
+  const handleSubmit = async (e) => {
+    alert('group made');
+    setLoading(true);
+    e.preventDefault();
+    const formData = new FormData();
+    for (const key in objSubmit) {
+      formData.append(key, objSubmit[key]);
+    }
+    var requestOptions = {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+      body: formData,
+    };
+
+    fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/..`, requestOptions)
+      .then((response) => response.json())
+      .then((result) => {
+        alert('message');
+        setObjSubmit({});
       })
+      .catch((error) => console.log('error', error))
+      .finally(() => setLoading(false));
+  };
 
-      const handleSubmit = async (e) => {
-        alert("group made")
-        setLoading(true);
-        e.preventDefault();
-        const formData = new FormData();
-        for (const key in objSubmit) {
-          formData.append(key, objSubmit[key]);
-        }
-        var requestOptions = {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-          body: formData,
-        };
-    
-        fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/..`, requestOptions)
-          .then((response) => response.json())
-          .then((result) => {
-            alert("message");
-            setObjSubmit({});
-          })
-          .catch((error) => console.log("error", error))
-          .finally(() => setLoading(false));
-      };
+  const handleChange = (value, key) => {
+    let temp = { ...objSubmit };
+    temp[key] = value;
+    setObjSubmit(temp);
+  };
 
-      const handleChange = (value, key) => {
-        let temp = { ...objSubmit };
-        temp[key] = value;
-        setObjSubmit(temp);
-      };
-
-  return(
+  return (
     <div className='bg-[#ecf0f1] border-0 md:h-full w-[425px] mx-auto border-2 border-[#2c3e50] pb-10'>
       <Head>
         <title>LesGoo | New Group</title>
-        <link rel="icon" href="/icon.png" />
+        <link rel='icon' href='/icon.png' />
       </Head>
       <Navbarback title={'New Group'} />
       <form onSubmit={(e) => handleSubmit(e)}>
@@ -100,56 +106,77 @@ export default function Newgroup() {
           </p>
         </div>
         <div className='w-full mt-10 h-32 bg-white flex flex-col items-center'>
-          <textarea id='input-groupdes' name="description" placeholder=' add group description' cols="30" rows="10" className='rounded-xl mt-5 h-24 bg-[#d9d9d9] w-10/12' onChange={(e) => handleChange(e.target.value, "groupdes")} ></textarea>
+          <textarea
+            id='input-groupdes'
+            name='description'
+            placeholder=' add group description'
+            cols='30'
+            rows='10'
+            className='rounded-xl mt-5 h-24 bg-[#d9d9d9] w-10/12'
+            onChange={(e) => handleChange(e.target.value, 'groupdes')}
+          ></textarea>
         </div>
         <div className='w-full mt-10 h-32 bg-white flex justify-around items-center'>
           <div className='bg-[#1abc9c] rounded'>
             <p className='text-center text-white'>Start Date</p>
-            <input type="date" id='start-date' onChange={(e) => handleChange(e.target.value, "start-date")}  />
+            <input
+              type='date'
+              id='start-date'
+              onChange={(e) => handleChange(e.target.value, 'start-date')}
+            />
           </div>
           <div className='bg-[#1abc9c] rounded'>
             <p className='text-center text-white'>End Date</p>
-            <input id='end-date' type="date" onChange={(e) => handleChange(e.target.value, "end-date")} />
+            <input
+              id='end-date'
+              type='date'
+              onChange={(e) => handleChange(e.target.value, 'end-date')}
+            />
           </div>
         </div>
         <div className='w-full mt-10 h-auto bg-white'>
           <h2 className='p-3'>Start Location</h2>
           <Map
-          onChange={(e) => handleChange(e.target.value, "location")}
-          popup_label="Start Location"
-          center={location}
-          location={location}
-          draggable={true}
-          onDragMarker={(e) => {
+            onChange={(e) => handleChange(e.target.value, 'location')}
+            popup_label='Start Location'
+            center={location}
+            location={location}
+            draggable={true}
+            onDragMarker={(e) => {
               let loc = { lat: e.lat, lng: e.lng };
               setLocation(loc);
-              console.log("start", location)
-              }}
+              console.log('start', location);
+            }}
           />
-          {"lat: " + location.lat}
+          {'lat: ' + location.lat}
           <br />
-          {"lng: " + location.lng}
+          {'lng: ' + location.lng}
         </div>
         <div className='w-full mt-10 h-auto bg-white'>
           <h2 className='p-3'>Set Destination</h2>
           <Map
-          onChange={(e) => handleChange(e.target.value, "destination")}
-          popup_label="Destination"
-          center={destination}
-          location={destination}
-          draggable={true}
-          onDragMarker={(e) => {
+            onChange={(e) => handleChange(e.target.value, 'destination')}
+            popup_label='Destination'
+            center={destination}
+            location={destination}
+            draggable={true}
+            onDragMarker={(e) => {
               let loc = { lat: e.lat, lng: e.lng };
               setDestination(loc);
-              console.log("finish", destination)
-              }}
+              console.log('finish', destination);
+            }}
           />
-          {"lat: " + destination.lat}
+          {'lat: ' + destination.lat}
           <br />
-          {"lng: " + destination.lng}
+          {'lng: ' + destination.lng}
         </div>
         <button className='w-full flex justify-end mt-10'>
-          <BsFillArrowRightCircleFill id='btn-newgroup' size={40} color='#1abc9c' className='mr-5'/>
+          <BsFillArrowRightCircleFill
+            id='btn-newgroup'
+            size={40}
+            color='#1abc9c'
+            className='mr-5'
+          />
         </button>
       </form>
     </div>

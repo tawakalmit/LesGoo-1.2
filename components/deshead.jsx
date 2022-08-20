@@ -1,16 +1,15 @@
-import React from 'react'
-import { Menu } from '@headlessui/react'
-import Link from 'next/link'
+import React from 'react';
+import { Menu } from '@headlessui/react';
+import Link from 'next/link';
 
-import { MdArrowBack } from 'react-icons/md'
-import { AiFillPicture, AiFillDelete } from 'react-icons/ai'
-import { GiHamburgerMenu } from 'react-icons/gi'
-import { CgProfile } from 'react-icons/cg'
-import { MdLogout } from 'react-icons/md'
-import { RiDeleteBin6Fill, RiLogoutCircleRFill } from 'react-icons/ri'
+import { MdArrowBack } from 'react-icons/md';
+import { AiFillPicture, AiFillDelete } from 'react-icons/ai';
+import { GiHamburgerMenu } from 'react-icons/gi';
+import { CgProfile } from 'react-icons/cg';
+import { MdLogout } from 'react-icons/md';
+import { RiDeleteBin6Fill, RiLogoutCircleRFill } from 'react-icons/ri';
 
-export default function Deshead({groupname, groupid, participants }) {
-
+export default function Deshead({ groupname, groupid, participants }) {
   const handleClickLeaveGroup = () => {
     var leave = {
       method: 'POST',
@@ -62,14 +61,18 @@ export default function Deshead({groupname, groupid, participants }) {
   return (
     <div className='bg-[#1abc9c] w-full h-fit'>
       <div className='w-11/12 mx-auto justify-between pt-5 flex'>
-        <Link href='/'><MdArrowBack id='back-to-home' size={25} color='white' /></Link>
+        <Link href='/'>
+          <MdArrowBack id='back-to-home' size={25} color='white' />
+        </Link>
         <div>
-            <Menu>
-              <Menu.Button><GiHamburgerMenu id='des-option' size={25} color='white'/></Menu.Button>
-              <Menu.Items className='absolute right-0 top-14 w-40 bg-[#f1c40f] z-10 md:right-48 lg:right-80 xl:inset-x-1/2 2xl:inset-x-1/2'>
-                <Menu.Item>
-                  {({ active }) => (
-                    <div>
+          <Menu>
+            <Menu.Button>
+              <GiHamburgerMenu id='des-option' size={25} color='white' />
+            </Menu.Button>
+            <Menu.Items className='absolute right-0 top-14 w-40 bg-[#05B08E] z-10 md:right-48 lg:right-80 xl:inset-x-1/2 2xl:inset-x-1/2 shadow-sm rounded-md shadow-green-700'>
+              <Menu.Item>
+                {({ active }) => (
+                  <div>
                     <Link id='btn-profile' href='/profile'>
                       <div className='ml-2 p-2 flex justify-start items-center cursor-pointer'>
                         <CgProfile size={20} color='white' />
@@ -103,11 +106,11 @@ export default function Deshead({groupname, groupid, participants }) {
                       <p className='ml-3 text-white'>Log out</p>
                     </div>
                   </div>
-                  )}
-                </Menu.Item>
-              </Menu.Items>
-            </Menu>
-            </div>
+                )}
+              </Menu.Item>
+            </Menu.Items>
+          </Menu>
+        </div>
       </div>
       <div className='flex flex-col items-center pb-2'>
         <AiFillPicture size={100} />
@@ -116,5 +119,5 @@ export default function Deshead({groupname, groupid, participants }) {
         <p className='text-white text-xs'>{participants} participants</p>
       </div>
     </div>
-  )
+  );
 }
