@@ -29,13 +29,13 @@ export default function Chat() {
       .then((result) => {
         const { data } = result;
         console.log(data);
-        // dispatch(
-        //   setChats({
-        //     status: data.status,
-        //     groupname: data.name,
-        //     chats: data.chats,
-        //   })
-        // );
+        dispatch(
+          setChats({
+            status: data.status,
+            groupname: data.name,
+            chats: data.chats,
+          })
+        );
       })
       .catch((err) => {
         alert(err.toString());

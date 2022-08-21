@@ -2,12 +2,12 @@ import React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-import { GiHamburgerMenu } from 'react-icons/gi'
+import { GiHamburgerMenu } from 'react-icons/gi';
 import { Menu } from '@headlessui/react';
 import { CgProfile } from 'react-icons/cg';
 import { MdLogout } from 'react-icons/md';
 import { HiUserGroup } from 'react-icons/hi';
-import { BiDetail } from 'react-icons/bi'
+import { BiDetail } from 'react-icons/bi';
 
 import { getCookie, deleteCookie } from 'cookies-next';
 
@@ -65,7 +65,7 @@ export default function Navbargroup() {
   };
 
   return (
-    <div className='fixed w-full h-16 bg-[#1abc9c] md:w-[425px] z-50'>
+    <div className='fixed w-full top-0 h-16 bg-[#1abc9c] md:w-[425px] z-50'>
       <div className='mx-auto h-16 items-center w-11/12 flex justify-between '>
         <HiUserGroup
           className='cursor-pointer'
@@ -76,7 +76,7 @@ export default function Navbargroup() {
         <div>
           <Menu>
             <Menu.Button>
-            <GiHamburgerMenu size={30} color='white' id='btn-burger' />
+              <GiHamburgerMenu size={30} color='white' id='btn-burger' />
             </Menu.Button>
             <Menu.Items className='z-50 fixed right-0 shadow-lg top-16 w-40 bg-[#1abc9c] md:relative'>
               <Menu.Item>

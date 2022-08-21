@@ -70,7 +70,6 @@ export default function Footbar(props) {
   };
 
   const handleClickSend = async (e) => {
-    e.preventDefault();
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/chats`,
@@ -85,13 +84,13 @@ export default function Footbar(props) {
       );
       const data = await response.json();
       if (response.status < 300) {
-        alert('success');
+        // alert('success');
       } else if (response.status >= 300) {
         throw data.message;
       }
     } catch (error) {
-      console.log('error:', error);
-      alert(error);
+      // console.log('error:', error);
+      // alert(error);
     }
   };
   return (
