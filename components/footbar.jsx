@@ -25,8 +25,6 @@ export default function Footbar(props) {
   }, []);
 
   const handleClickSos = (e) => {
-    setMessage((state) => ({ ...state, message: 'SOS' }));
-    setMessage((state) => ({ ...state, isSOS: true }));
     e.preventDefault();
     let requestOptions = {
       method: 'POST',
@@ -34,7 +32,11 @@ export default function Footbar(props) {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(message),
+      body: JSON.stringify({
+        group_id: message.group_id,
+        isSOS: true,
+        message: 'SOS',
+      }),
     };
     fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/chats`, requestOptions)
       .then((response) => response.json())

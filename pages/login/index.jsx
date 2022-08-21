@@ -71,7 +71,7 @@ export default function Login() {
       }
     } catch (error) {
       console.log('error:', error);
-      alert('your username or password is incorrect');
+      alert(error);
     }
   };
 
