@@ -8,22 +8,26 @@ import { GiHamburgerMenu } from 'react-icons/gi';
 import { CgProfile } from 'react-icons/cg';
 import { MdLogout } from 'react-icons/md';
 import { RiDeleteBin6Fill, RiLogoutCircleRFill } from 'react-icons/ri';
-
+import { async } from '@firebase/util';
+import { getCookie, deleteCookie } from 'cookies-next';
 export default function Deshead({ groupname, groupid, participants }) {
+  const token = getCookie('usr_token');
+  const group_id = getCookie('usr_group_id');
+
   const handleClickLeaveGroup = () => {
     var leave = {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        group_id: null,
-      }),
+      body: JSON.stringify(group_id),
     };
     fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/leave`, leave)
       .then((response) => response.json())
       .then((result) => {
-        console.log(result);
+        // console.log(result);
+        deleteCookie('usr_group_id');
         router.push('/');
       })
       .catch((err) => {
@@ -47,9 +51,36 @@ export default function Deshead({ groupname, groupid, participants }) {
       );
       const data = await response.json();
       if (response.status === 200) {
-        console.log('logout success');
         deleteCookie('usr_token');
+        deleteCookie('usr_username');
+        deleteCookie('usr_group_id');
+        localforage.clear();
         router.push('/login');
+      } else if (response.status >= 300) {
+        throw data.message;
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+  const handleClickDeleteGroup = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/delete/${group_id}`,
+        {
+          method: 'POST',
+          headers: {
+            Authorization: `bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      const data = await response.json();
+      if (response.status === 200) {
+        deleteCookie('usr_group_id');
+        router.push('/');
       } else if (response.status >= 300) {
         throw data.message;
       }
@@ -91,6 +122,7 @@ export default function Deshead({ groupname, groupid, participants }) {
 
                     <div
                       id='btn-deletegroup'
+                      onClick={handleClickDeleteGroup}
                       className='ml-2 p-2 flex justify-start items-center cursor-pointer'
                     >
                       <RiDeleteBin6Fill size={20} color='white' />

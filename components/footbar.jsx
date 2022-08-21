@@ -5,6 +5,7 @@ import { GoAlert } from 'react-icons/go';
 import Swal from 'sweetalert2';
 
 import { getCookie } from 'cookies-next';
+import Router from 'next/router';
 
 export default function Footbar(props) {
   const token = getCookie('usr_token');
@@ -108,6 +109,7 @@ export default function Footbar(props) {
           onChange={handleChangeMessage}
           id='input-chat'
           type='text'
+          value={message.message}
           placeholder='Message'
           className='w-full bg-slate-100 mx-7 p-1 mt-1 rounded-lg pl-2 border-2 font-semibold text-slate-700 border-slate-100 shadow-sm placeholder:text-slate-400 placeholder:text-sm focus:outline-none'
         />
