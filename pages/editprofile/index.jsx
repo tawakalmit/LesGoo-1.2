@@ -3,7 +3,7 @@ import { CgProfile } from 'react-icons/cg';
 import { useRouter } from 'next/router';
 import Navbarback from '../../components/navbarback';
 import Head from 'next/head';
-import { getCookie } from 'cookies-next';
+import { getCookie, deleteCookie } from 'cookies-next';
 
 export default function Editprofile() {
   const inputRef = useRef(null);
@@ -112,6 +112,8 @@ export default function Editprofile() {
         const { message, code } = result;
         if (code === 200) {
           alert(message);
+          deleteCookie('usr_token');
+          deleteCookie('usr_username');
           route.push('/login');
         }
       })
