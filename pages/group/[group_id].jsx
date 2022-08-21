@@ -41,8 +41,6 @@ export default function Group() {
     lat: -6.7310985770600755,
     lng: 107.04116821289064,
   });
-  const [latitude, setLatitude] = useState({ lat: null });
-  const [longitude, setLongitude] = useState({ lng: null });
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(function (position) {
@@ -50,6 +48,8 @@ export default function Group() {
       setLongitude(position.coords.longitude);
     });
   });
+  const [latitude, setLatitude] = useState({ lat: null });
+  const [longitude, setLongitude] = useState({ lng: null });
 
   return (
     <>
