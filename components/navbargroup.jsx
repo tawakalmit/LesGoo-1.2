@@ -2,19 +2,21 @@ import React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-import { GiHamburgerMenu } from 'react-icons/gi'
+import { GiHamburgerMenu } from 'react-icons/gi';
 import { Menu } from '@headlessui/react';
 import { CgProfile } from 'react-icons/cg';
 import { MdLogout } from 'react-icons/md';
 import { HiUserGroup } from 'react-icons/hi';
-import { BiDetail } from 'react-icons/bi'
+import { BiDetail } from 'react-icons/bi';
 
 import { getCookie, deleteCookie } from 'cookies-next';
+import localforage from 'localforage';
 
 export default function Navbargroup() {
   const router = useRouter();
 
   const token = getCookie('usr_token');
+  const group_id = getCookie('usr_group_id');
 
   const handleClickLeaveGroup = () => {
     var leave = {
@@ -55,6 +57,9 @@ export default function Navbargroup() {
       if (response.status === 200) {
         console.log('logout success');
         deleteCookie('usr_token');
+        deleteCookie('usr_username');
+        deleteCookie('usr_group_id');
+        localforage.clear();
         router.push('/login');
       } else if (response.status >= 300) {
         throw data.message;
@@ -64,8 +69,12 @@ export default function Navbargroup() {
     }
   };
 
+  const handleClickGroupDetail = (e) => {
+    router.push(`/groupdetail/${group_id}`);
+  };
+
   return (
-    <div className='fixed w-full h-16 bg-[#1abc9c] md:w-[425px] z-50'>
+    <div className='fixed w-full top-0 h-16 bg-[#1abc9c] md:w-[425px] z-50'>
       <div className='mx-auto h-16 items-center w-11/12 flex justify-between '>
         <HiUserGroup
           className='cursor-pointer'
@@ -76,7 +85,7 @@ export default function Navbargroup() {
         <div>
           <Menu>
             <Menu.Button>
-            <GiHamburgerMenu size={30} color='white' id='btn-burger' />
+              <GiHamburgerMenu size={30} color='white' id='btn-burger' />
             </Menu.Button>
             <Menu.Items className='z-50 fixed right-0 shadow-lg top-16 w-40 bg-[#1abc9c] md:relative'>
               <Menu.Item>
@@ -89,12 +98,12 @@ export default function Navbargroup() {
                       </div>
                     </Link>
 
-                    <Link id='btn-groupdetail' href='/groupdetail'>
+                    <div id='btn-groupdetail' onClick={handleClickGroupDetail}>
                       <div className='ml-2 p-2 flex justify-start items-center cursor-pointer'>
                         <BiDetail size={20} color='white' />
                         <p className='ml-3 text-white'>Group Detail</p>
                       </div>
-                    </Link>
+                    </div>
 
                     <div
                       id='btn-leavegroup'

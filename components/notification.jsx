@@ -57,13 +57,14 @@ function Notification({ children }) {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           group_id: group_id,
         }),
       };
       fetch(
-        'https://virtserver.swaggerhub.com/faqihassyfa/LesGoo/1.0.0/group/chats',
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/group/chats`,
         requestOptions
       )
         .then((response) => response.json())

@@ -22,6 +22,10 @@ export default function GroupDetail() {
     if (!token) {
       router.push('/login');
     }
+    if (!group_id) {
+      router.push('/');
+    }
+    console.log('hee');
     fetchData();
   }, []);
 
@@ -33,12 +37,13 @@ export default function GroupDetail() {
       },
     };
     fetch(
-      'https://virtserver.swaggerhub.com/faqihassyfa/LesGoo/1.0.0/group/1',
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/group/${group_id}`,
       requestOptions
     )
       .then((response) => response.json())
       .then((result) => {
         const { data } = result;
+        console.log(data);
         setDataGroup((state) => ({
           ...state,
           group_id: data.id,
@@ -62,14 +67,14 @@ export default function GroupDetail() {
       <Deshead
         groupname={dataGroup.group_name}
         groupid={dataGroup.group_id}
-        participants={dataGroup.length}
+        participants={dataGroup.group_users.length}
       />
 
       <Description des={dataGroup.description} />
 
       <div className='h-fit w-full bg-[#d9d9d9] mt-10'>
-        <h2 className='p-3'>Participants</h2>
-        <div className='mt-5 pl-3'>
+        <h2 className='p-3'> {dataGroup.group_users.length} Participants</h2>
+        <div className='mt-2 pl-3'>
           {dataGroup.group_users.map((user) => {
             return <Contact key={user} name={user.username} />;
           })}

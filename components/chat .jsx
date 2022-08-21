@@ -2,8 +2,10 @@ import { useEffect } from 'react';
 import { getCookie } from 'cookies-next';
 import { useDispatch, useSelector } from 'react-redux';
 import { setChats } from '../redux/chat';
+import { useRouter } from 'next/router';
 
 export default function Chat() {
+  const router = useRouter();
   const chats = useSelector((state) => state.chats.chats);
   const dispatch = useDispatch();
 
@@ -12,6 +14,12 @@ export default function Chat() {
   const group_id = getCookie('usr_group_id');
 
   useEffect(() => {
+    if (!token) {
+      router.push('/login');
+    }
+    if (!group_id) {
+      router.push('/');
+    }
     fetchData();
   }, []);
 
@@ -20,13 +28,11 @@ export default function Chat() {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify(group_id),
+      body: JSON.stringify({ group_id: group_id }),
     };
-    fetch(
-      'https://virtserver.swaggerhub.com/faqihassyfa/LesGoo/1.0.0/group/chats',
-      requestOptions
-    )
+    fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/group/chats`, requestOptions)
       .then((response) => response.json())
       .then((result) => {
         const { data } = result;
@@ -36,6 +42,7 @@ export default function Chat() {
             status: data.status,
             groupname: data.name,
             chats: data.chats,
+            created_at: data.created_at,
           })
         );
       })
@@ -66,7 +73,7 @@ export default function Chat() {
                 <p className='text-sm text-teal'>{chat.username}</p>
                 <p className='text-sm mt-1'>{chat.message}</p>
                 <p className='text-right text-xs text-grey-dark mt-1'>
-                  12:45 pm
+                  {chat.created_at}
                 </p>
               </div>
             </div>
