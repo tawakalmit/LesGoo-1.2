@@ -73,7 +73,7 @@ export default function GroupDetail() {
 
       <Description des={dataGroup.description} />
 
-      <div className='h-fit w-full bg-[#d9d9d9] mt-10'>
+      <div className='h-fit w-full mt-10'>
         <h2 className='p-3'> {dataGroup.group_users.length} Participants</h2>
         <div className='mt-2 pl-3'>
           {dataGroup.group_users.map((user) => {
