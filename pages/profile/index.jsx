@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import Navbarback from '../../components/navbarback';
 import Head from 'next/head';
 import { getCookie } from 'cookies-next';
+import Image from 'next/image';
 
 export default function Profile() {
   const token = getCookie('usr_token');
@@ -13,6 +14,7 @@ export default function Profile() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
+  const [ProfileImg, setProfileImg] = useState('');
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -29,21 +31,23 @@ export default function Profile() {
     var requestOptions = {
       method: 'GET',
       headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        Authorization: `Bearer ${token}`,
       },
     };
     fetch(
-      'https://virtserver.swaggerhub.com/faqihassyfa/LesGoo/1.0.0/users',
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/users `,
       requestOptions
     )
       .then((response) => response.json())
       .then((result) => {
+        console.log(result)
         const { data } = result;
-        const { id, username, email, phone } = data;
-        setId(id);
-        setUsername(username);
-        setEmail(email);
-        setPhone(phone);
+        const { ID, Username, Email, Phone, ProfileImg } = data;
+        setId(ID);
+        setUsername(Username);
+        setEmail(Email);
+        setPhone(Phone);
+        setProfileImg(ProfileImg);
       })
       .catch((err) => {
         alert(err.toString());
@@ -55,6 +59,8 @@ export default function Profile() {
     return <div>Loading...</div>;
   }
 
+  console.log(ProfileImg)
+
   return (
     <div className='bg-[#ecf0f1] border-0 h-screen md:h-screen w-[425px] mx-auto border-2 border-[#2c3e50] pb-10'>
       <Head>
@@ -64,7 +70,7 @@ export default function Profile() {
       <Navbarback title={'Profile'} />
       <div>
         <div className='w-10/12 flex flex-col mx-auto items-center'>
-          <CgProfile color='#2c3e50' size={70} className='mt-5' />
+          <Image width={200} height={200} alt='image' src={"/user.png"} />
           <h1 className='text-xl mt-3'>{username}</h1>
           <div className='w-11/12 mx-auto justify-between flex mt-10'>
             <h2 className='text-lg font-regular'>EMAIL</h2>
