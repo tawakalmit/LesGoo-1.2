@@ -60,7 +60,7 @@ export default function Navbargroup() {
         deleteCookie('usr_username');
         deleteCookie('usr_group_id');
         localforage.clear();
-        router.push('/login');
+        router.push('/login', undefined, { shallow: true });
       } else if (response.status >= 300) {
         throw data.message;
       }

@@ -3,6 +3,7 @@ import { getCookie } from 'cookies-next';
 import { useDispatch, useSelector } from 'react-redux';
 import { setChats } from '../redux/chat';
 import { useRouter } from 'next/router';
+import { format, formatDistance, formatRelative, subDays } from 'date-fns';
 
 export default function Chat() {
   const router = useRouter();
@@ -22,6 +23,15 @@ export default function Chat() {
     }
     fetchData();
   }, []);
+
+  useEffect(() => {
+    document.getElementById('bottom').scrollIntoView({ behavior: 'smooth' });
+  }, [chats]);
+
+  const formatDate = (d) => {
+    const ndate = formatDistance(new Date(d), new Date(), { addSuffix: true });
+    return ndate;
+  };
 
   const fetchData = async () => {
     var requestOptions = {
@@ -73,13 +83,14 @@ export default function Chat() {
                 <p className='text-sm text-teal'>{chat.username}</p>
                 <p className='text-sm mt-1'>{chat.message}</p>
                 <p className='text-right text-xs text-grey-dark mt-1'>
-                  {/* {chat.created_at} */}
+                  {formatDate(chat.created_at)}
                 </p>
               </div>
             </div>
           </div>
         );
       })}
+      <div id='bottom' />
     </>
   );
 }

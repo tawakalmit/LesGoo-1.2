@@ -24,6 +24,9 @@ export default function Login() {
   useEffect(() => {
     const getFcmToken = async () => {
       const tokenInLocalForage = await localforage.getItem('fcm_token');
+      if (!tokenInLocalForage) {
+        location.reload();
+      }
       setDataLogin((current) => ({
         ...current,
         fcm_token: tokenInLocalForage,
