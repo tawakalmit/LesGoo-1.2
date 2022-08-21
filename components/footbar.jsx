@@ -25,6 +25,7 @@ export default function Footbar(props) {
   }, []);
 
   const handleClickSos = (e) => {
+    setMessage((state) => ({ ...state, message: 'SOS' }));
     setMessage((state) => ({ ...state, isSOS: true }));
     e.preventDefault();
     let requestOptions = {

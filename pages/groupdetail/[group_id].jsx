@@ -68,6 +68,7 @@ export default function GroupDetail() {
         groupname={dataGroup.group_name}
         groupid={dataGroup.group_id}
         participants={dataGroup.group_users.length}
+        group_img={dataGroup.group_img}
       />
 
       <Description des={dataGroup.description} />

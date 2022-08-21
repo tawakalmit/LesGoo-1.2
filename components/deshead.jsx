@@ -10,9 +10,12 @@ import { MdLogout } from 'react-icons/md';
 import { RiDeleteBin6Fill, RiLogoutCircleRFill } from 'react-icons/ri';
 import { async } from '@firebase/util';
 import { getCookie, deleteCookie } from 'cookies-next';
+import { useRouter } from 'next/router';
+
 export default function Deshead({ groupname, groupid, participants }) {
   const token = getCookie('usr_token');
   const group_id = getCookie('usr_group_id');
+  const router = useRouter();
 
   const handleClickLeaveGroup = () => {
     var leave = {
@@ -21,9 +24,9 @@ export default function Deshead({ groupname, groupid, participants }) {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(group_id),
+      body: JSON.stringify({ group_id: group_id }),
     };
-    fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/leave`, leave)
+    fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/group/leave`, leave)
       .then((response) => response.json())
       .then((result) => {
         // console.log(result);
@@ -51,9 +54,9 @@ export default function Deshead({ groupname, groupid, participants }) {
       );
       const data = await response.json();
       if (response.status === 200) {
+        console.log('logout success');
         deleteCookie('usr_token');
         deleteCookie('usr_username');
-        deleteCookie('usr_group_id');
         localforage.clear();
         router.push('/login');
       } else if (response.status >= 300) {
@@ -68,9 +71,9 @@ export default function Deshead({ groupname, groupid, participants }) {
     e.preventDefault();
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/delete/${group_id}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/group/${group_id}`,
         {
-          method: 'POST',
+          method: 'DELETE',
           headers: {
             Authorization: `bearer ${token}`,
             'Content-Type': 'application/json',

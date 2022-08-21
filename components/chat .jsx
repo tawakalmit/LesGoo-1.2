@@ -54,7 +54,7 @@ export default function Chat() {
 
   return (
     <>
-      {chats.map((chat) => {
+      {chats?.map((chat) => {
         return (
           <div key={chat.id} className='p-2 mb-2'>
             <div
