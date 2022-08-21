@@ -75,6 +75,7 @@ export default function Newgroup() {
       .then((response) => response.json())
       .then((result) => {
         const { group_id } = result;
+        setCookie('usr_group_id', group_id);
         route.push(`/group/${group_id}`);
         const { message } = result;
         Swal.fire(message);
