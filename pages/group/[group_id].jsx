@@ -10,8 +10,10 @@ import Head from 'next/head';
 
 export default function Group() {
   const token = getCookie('usr_token');
-
+  const group_id = getCookie('usr_group_id');
   const router = useRouter();
+  const [final_dest, setFinalDest] = useState("");
+  const [start_dest, setStartDest] = useState("");
 
   useEffect(() => {
     if (!token) {
@@ -52,6 +54,34 @@ export default function Group() {
     });
   });
 
+  useEffect(() => {
+    fetchData();
+  }, [])
+
+  const fetchData = async () => {
+    var requestOptions = {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ group_id: group_id }),
+    };
+    fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/group/chats`, requestOptions)
+      .then((response) => response.json())
+      .then((result) => {
+        const { data } = result;
+        const {start_dest, final_dest} = data;
+        setStartDest(start_dest);
+        setFinalDest(final_dest);
+        console.log("ini start destination",start_dest);
+      })
+      .catch((err) => {
+        alert(err.toString());
+      })
+      .finally();
+  };
+
   return (
     <>
       <Head>
@@ -64,8 +94,8 @@ export default function Group() {
           <Getmap
             popup_label='Start Location'
             center={location}
-            location={location}
-            destination={destination}
+            location={start_dest}
+            destination={final_dest}
             latitude={latitude}
             longitude={longitude}
           />
