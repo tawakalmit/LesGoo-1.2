@@ -13,6 +13,7 @@
     "@reduxjs/toolkit": "^1.8.3",
     "axios": "^0.27.2",
     "cookies-next": "^2.1.1",
+    "date-fns": "^2.29.2",
     "firebase": "^9.9.2",
     "flowbite-datepicker": "^1.2.2",
     "leaflet": "^1.8.0",

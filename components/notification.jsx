@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { setChats } from '../redux/chat';
 import { getCookie } from 'cookies-next';
+import Swal from 'sweetalert2';
 
 function Notification({ children }) {
   const chats = useSelector((state) => state.chats.chats);
@@ -52,6 +53,30 @@ function Notification({ children }) {
 
     onMessage(messaging, (message) => {
       console.log('Message received. ', message);
+      if (message.data.isSOS == 'true') {
+        let timerInterval;
+        Swal.fire({
+          backdrop: `rgba(231, 76, 60, .7)`,
+          title: 'SOS Activated',
+          html: `<strong></strong> seconds.<br/><br/> Slowly! <br> ${message.data.username} are left behind!!!`,
+          timer: 15000,
+          didOpen: () => {
+            const content = Swal.getHtmlContainer();
+            const $ = content.querySelector.bind(content);
+
+            Swal.showLoading();
+
+            timerInterval = setInterval(() => {
+              Swal.getHtmlContainer().querySelector('strong').textContent = (
+                Swal.getTimerLeft() / 1000
+              ).toFixed(0);
+            }, 100);
+          },
+          willClose: () => {
+            clearInterval(timerInterval);
+          },
+        });
+      }
 
       var requestOptions = {
         method: 'POST',

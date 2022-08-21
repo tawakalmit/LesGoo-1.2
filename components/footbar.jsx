@@ -83,7 +83,11 @@ export default function Footbar(props) {
             Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify(message),
+          body: JSON.stringify({
+            group_id: message.group_id,
+            isSOS: false,
+            message: message.message,
+          }),
         }
       );
       const data = await response.json();
