@@ -71,7 +71,7 @@ export default function Login() {
       }
     } catch (error) {
       console.log('error:', error);
-      alert(error);
+      alert('something is wrong, please recheck or refresh your page');
     }
   };
 
