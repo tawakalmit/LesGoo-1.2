@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import Navbarback from '../../components/navbarback';
 import Head from 'next/head';
 import { getCookie, deleteCookie } from 'cookies-next';
+import Swal from 'sweetalert2';
 
 export default function Editprofile() {
   const inputRef = useRef(null);
@@ -79,7 +80,7 @@ export default function Editprofile() {
         console.log(result);
         const { message } = result;
         route.push(`/profile`);
-        alert(message);
+        Swal.fire(message);
       })
       .catch((error) => {
         console.log(error);
@@ -111,7 +112,7 @@ export default function Editprofile() {
         console.log(result);
         const { message, code } = result;
         if (code === 200) {
-          alert(message);
+          Swal.fire(message)
           deleteCookie('usr_token');
           deleteCookie('usr_username');
           route.push('/login');
