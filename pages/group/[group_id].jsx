@@ -58,7 +58,7 @@ export default function Group() {
         <title>LesGoo | Group</title>
         <link rel='icon' href='/icon.png' />
       </Head>
-      <div className='bg-slate-500 border-0 min-h-screen md:w-[425px] mx-auto border-2 border-[#2c3e50] pb-10'>
+      <div className='bg-slate-500 min-h-screen md:w-[425px] mx-auto border-[#2c3e50] pb-10'>
         <Navbargroup />
         <div>
           <Getmap
