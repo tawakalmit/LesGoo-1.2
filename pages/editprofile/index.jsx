@@ -3,27 +3,20 @@ import { CgProfile } from 'react-icons/cg';
 import { useRouter } from 'next/router';
 import Navbarback from '../../components/navbarback';
 import Head from 'next/head';
-import { getCookie } from 'cookies-next';
+import { getCookie, deleteCookie } from 'cookies-next';
+import Swal from 'sweetalert2';
 
 export default function Editprofile() {
   const inputRef = useRef(null);
   const route = useRouter();
+  const [objSubmit, setObjSubmit] = useState({});
+  const [id, setId] = useState('');
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
+  const [profileImg, setProfileImg] = useState("");
   const [loading, setLoading] = useState(false);
   const token = getCookie('usr_token');
-
-  const handleImage = () => {
-    inputRef.current.click();
-  };
-
-  const handleFileChange = (event) => {
-    const fileObj = event.target.files && event.target.files[0];
-    if (!fileObj) {
-      return;
-    }
-  };
 
   useEffect(() => {
     if (!token) {
@@ -40,16 +33,18 @@ export default function Editprofile() {
       },
     };
     fetch(
-      'https://virtserver.swaggerhub.com/faqihassyfa/LesGoo/1.0.0/users',
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/users `,
       requestOptions
     )
       .then((response) => response.json())
       .then((result) => {
         const { data } = result;
-        const { id, username, email, phone } = data;
-        setUsername(username);
-        setEmail(email);
-        setPhone(phone);
+        const { ID, Username, Email, Phone, ProfileImg } = data;
+        setUsername(Username);
+        setEmail(Email);
+        setPhone(Phone);
+        setProfileImg(ProfileImg);
+        setId(ID);
       })
       .catch((err) => {
         alert(err.toString());
@@ -63,18 +58,21 @@ export default function Editprofile() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const body = { username, email, phone };
+    const formData = new FormData();
+        for (const key in objSubmit) {
+          formData.append(key, objSubmit[key]);
+        }
 
     let requestOptions = {
       method: 'PUT',
       headers: {
-        Authorization: { 'Content-Type': 'application/json' },
+        Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(body),
+      body: formData,
     };
 
     fetch(
-      `https://virtserver.swaggerhub.com/faqihassyfa/LesGoo/1.0.0/users`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/users `,
       requestOptions
     )
       .then((response) => response.json())
@@ -82,7 +80,7 @@ export default function Editprofile() {
         console.log(result);
         const { message } = result;
         route.push(`/profile`);
-        alert(message);
+        Swal.fire(message);
       })
       .catch((error) => {
         console.log(error);
@@ -91,16 +89,22 @@ export default function Editprofile() {
       .finally();
   };
 
+  const handleChange = (value, key) => {
+    let temp = { ...objSubmit };
+    temp[key] = value;
+    setObjSubmit(temp);
+  };
+
   const handleDelete = () => {
     var requestOptions = {
       method: 'DELETE',
       headers: {
-        Authorization: { 'Content-Type': 'application/json' },
+        Authorization: `Bearer ${token}`,
       },
     };
 
     fetch(
-      'https://virtserver.swaggerhub.com/faqihassyfa/LesGoo/1.0.0/users',
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/users `,
       requestOptions
     )
       .then((response) => response.json())
@@ -108,7 +112,9 @@ export default function Editprofile() {
         console.log(result);
         const { message, code } = result;
         if (code === 200) {
-          alert(message);
+          Swal.fire(message)
+          deleteCookie('usr_token');
+          deleteCookie('usr_username');
           route.push('/login');
         }
       })
@@ -130,22 +136,13 @@ export default function Editprofile() {
           className='mt-12 mx-auto w-8/12'
           onSubmit={(e) => handleSubmit(e)}
         >
-          <div>
-            <div onClick={handleImage}>
-              <CgProfile
+          <div className='mb-10 mx-auto'>
+          <CgProfile
                 id='edit-image'
                 color='#2c3e50'
                 size={70}
                 className='mb-10 mx-auto'
               />
-            </div>
-
-            <input
-              style={{ display: 'none' }}
-              ref={inputRef}
-              type='file'
-              onChange={handleFileChange}
-            />
           </div>
 
           <div className='mb-5'>
@@ -157,7 +154,7 @@ export default function Editprofile() {
               type='text'
               placeholder={username}
               className='w-full mx-auto p-1 mt-1 rounded-lg pl-2 border-2 font-semibold text-slate-700 border-slate-500 shadow-sm placeholder:text-slate-400 placeholder:text-sm focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-green-400'
-              onChange={(e) => setUsername(e.target.value)}
+              onChange={(e) => handleChange(e.target.value, "Username")}
             />
           </div>
           <div className='mb-5'>
@@ -167,7 +164,7 @@ export default function Editprofile() {
               type='email'
               placeholder={email}
               className='w-full mx-auto p-1 mt-1 rounded-lg pl-2 border-2 font-semibold text-slate-700 border-slate-500 shadow-sm placeholder:text-slate-400 placeholder:text-sm focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-green-400'
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => handleChange(e.target.value, "Email")}
             />
           </div>
           <div className='mb-5'>
@@ -177,9 +174,20 @@ export default function Editprofile() {
               type='number'
               placeholder={phone}
               className='w-full mx-auto p-1 mt-1 rounded-lg pl-2 border-2 font-semibold text-slate-700 border-slate-500 shadow-sm placeholder:text-slate-400 placeholder:text-sm focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-green-400'
-              onChange={(e) => setPhone(e.target.value)}
+              onChange={(e) => handleChange(e.target.value, "Phone")}
             />
           </div>
+
+          <div className='mb-5'>
+            <label className='ml-2 font-semibold text-gray-700'>Profile Image</label>
+            <input
+              id='edit-profileimg'
+              type='file'
+              className='w-full mx-auto p-1 mt-1 rounded-lg pl-2 border-2 font-semibold text-slate-700 border-slate-500 shadow-sm placeholder:text-slate-400 placeholder:text-sm focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-green-400'
+              onChange={(e) => handleChange(e.target.value, "ProfileImg")}
+            />
+          </div>
+
           <button
             id='btn-savehanges'
             className='my-10 block mx-auto px-5 py-2 -mb-6 rounded-full text-white font-semibold bg-green-400 hover:bg-green-500 active:bg-green-600'
