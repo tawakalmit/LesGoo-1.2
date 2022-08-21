@@ -10,6 +10,7 @@ import { HiUserGroup } from 'react-icons/hi';
 import { BiDetail } from 'react-icons/bi';
 
 import { getCookie, deleteCookie } from 'cookies-next';
+import localforage from 'localforage';
 
 export default function Navbargroup() {
   const router = useRouter();
@@ -56,6 +57,9 @@ export default function Navbargroup() {
       if (response.status === 200) {
         console.log('logout success');
         deleteCookie('usr_token');
+        deleteCookie('usr_username');
+        deleteCookie('usr_group_id');
+        localforage.clear();
         router.push('/login');
       } else if (response.status >= 300) {
         throw data.message;

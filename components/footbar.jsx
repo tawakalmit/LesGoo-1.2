@@ -84,7 +84,8 @@ export default function Footbar(props) {
       );
       const data = await response.json();
       if (response.status < 300) {
-        alert('success');
+        setMessage((state) => ({ ...state, message: '' }));
+        // alert('success');
       } else if (response.status >= 300) {
         throw data.message;
       }

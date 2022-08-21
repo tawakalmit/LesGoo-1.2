@@ -57,10 +57,10 @@ export default function Login() {
       );
       const data = await response.json();
       if (response.status < 300) {
-        // console.log(data.data.token);
+        console.log(data);
         setCookie('usr_token', data.data.token);
         setCookie('usr_username', dataLogin.username);
-        setCookie('usr_group_id', response.group_id);
+        setCookie('usr_group_id', data.data.group_id);
         if (group_id) {
           router.push(`/group/${group_id}`);
         } else {
@@ -83,14 +83,10 @@ export default function Login() {
     <div className='bg-[#ecf0f1] border-0 h-full md:w-[425px] mx-auto border-2 border-[#2c3e50] pb-10 lg:h-screen xl:h-screen'>
       <Head>
         <title>LesGoo | Login</title>
-        <link rel="icon" href="/icon.png" />
+        <link rel='icon' href='/icon.png' />
       </Head>
       <div className='w-full h-auto pt-20 flex justify-center'>
-      <Image 
-        src='/logo.png'
-        width={200}
-        height={70}
-        />
+        <Image src='/logo.png' width={200} height={70} />
       </div>
       <p className='text-base text-center font-semibold text-slate-500'>
         Make your roadtrip easier
