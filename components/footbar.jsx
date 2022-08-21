@@ -84,12 +84,12 @@ export default function Footbar(props) {
       );
       const data = await response.json();
       if (response.status < 300) {
-        // alert('success');
+        alert('success');
       } else if (response.status >= 300) {
         throw data.message;
       }
     } catch (error) {
-      // console.log('error:', error);
+      console.log('error:', error);
       // alert(error);
     }
   };

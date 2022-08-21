@@ -15,6 +15,7 @@ export default function Navbargroup() {
   const router = useRouter();
 
   const token = getCookie('usr_token');
+  const group_id = getCookie('usr_group_id');
 
   const handleClickLeaveGroup = () => {
     var leave = {
@@ -64,6 +65,10 @@ export default function Navbargroup() {
     }
   };
 
+  const handleClickGroupDetail = (e) => {
+    router.push(`/groupdetail/${group_id}`);
+  };
+
   return (
     <div className='fixed w-full top-0 h-16 bg-[#1abc9c] md:w-[425px] z-50'>
       <div className='mx-auto h-16 items-center w-11/12 flex justify-between '>
@@ -89,12 +94,12 @@ export default function Navbargroup() {
                       </div>
                     </Link>
 
-                    <Link id='btn-groupdetail' href='/groupdetail'>
+                    <div id='btn-groupdetail' onClick={handleClickGroupDetail}>
                       <div className='ml-2 p-2 flex justify-start items-center cursor-pointer'>
                         <BiDetail size={20} color='white' />
                         <p className='ml-3 text-white'>Group Detail</p>
                       </div>
-                    </Link>
+                    </div>
 
                     <div
                       id='btn-leavegroup'

@@ -6,6 +6,7 @@ export const authSlice = createSlice({
     status: '',
     chats: [],
     groupname: '',
+    created_at: '',
   },
   reducers: {
     setChats: (state, action) => {

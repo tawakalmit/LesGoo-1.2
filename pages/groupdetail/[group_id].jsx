@@ -22,6 +22,10 @@ export default function GroupDetail() {
     if (!token) {
       router.push('/login');
     }
+    if (!group_id) {
+      router.push('/');
+    }
+    console.log('hee');
     fetchData();
   }, []);
 
@@ -32,13 +36,11 @@ export default function GroupDetail() {
         Authorization: `Bearer ${token}`,
       },
     };
-    fetch(
-      'https://virtserver.swaggerhub.com/faqihassyfa/LesGoo/1.0.0/group/1',
-      requestOptions
-    )
+    fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/group`, requestOptions)
       .then((response) => response.json())
       .then((result) => {
         const { data } = result;
+        console.log(data);
         setDataGroup((state) => ({
           ...state,
           group_id: data.id,
