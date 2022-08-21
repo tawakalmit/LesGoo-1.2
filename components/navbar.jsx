@@ -9,7 +9,7 @@ import { CgProfile } from 'react-icons/cg';
 import { MdLogout } from 'react-icons/md';
 
 import { getCookie, deleteCookie } from 'cookies-next';
-import localforage, { removeItem } from 'localforage';
+import localforage from 'localforage';
 
 export default function Navbar(props) {
   const router = useRouter();
@@ -33,7 +33,7 @@ export default function Navbar(props) {
         console.log('logout success');
         deleteCookie('usr_token');
         deleteCookie('usr_username');
-        localforage.removeItem(fcm_token);
+        localforage.clear();
         router.push('/login');
       } else if (response.status >= 300) {
         throw data.message;

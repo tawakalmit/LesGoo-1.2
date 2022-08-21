@@ -54,7 +54,7 @@ export default function Chat() {
 
   return (
     <>
-      {chats.map((chat) => {
+      {chats?.map((chat) => {
         return (
           <div key={chat.id} className='p-2 mb-2'>
             <div
@@ -73,7 +73,7 @@ export default function Chat() {
                 <p className='text-sm text-teal'>{chat.username}</p>
                 <p className='text-sm mt-1'>{chat.message}</p>
                 <p className='text-right text-xs text-grey-dark mt-1'>
-                  {chat.created_at}
+                  {/* {chat.created_at} */}
                 </p>
               </div>
             </div>

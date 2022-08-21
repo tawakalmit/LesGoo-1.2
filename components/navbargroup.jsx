@@ -23,15 +23,15 @@ export default function Navbargroup() {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        group_id: null,
-      }),
+      body: JSON.stringify({ group_id: group_id }),
     };
-    fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/leave`, leave)
+    fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/group/leave`, leave)
       .then((response) => response.json())
       .then((result) => {
-        console.log(result);
+        // console.log(result);
+        deleteCookie('usr_group_id');
         router.push('/');
       })
       .catch((err) => {
