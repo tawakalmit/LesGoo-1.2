@@ -13,6 +13,50 @@ export default function Getmap({
 }) {
   const markerRef = useRef(null);
 
+  useEffect(() => {
+    fetchData();
+  }, [])
+
+  const fetchData = async () => {
+    var requestOptions = {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ group_id: group_id }),
+    };
+    fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/group/chats`, requestOptions)
+      .then((response) => response.json())
+      .then((result) => {
+        const { data } = result;
+        console.log(data);
+        const {start_dest, final_dest} = data;
+        setStartDest(start_dest);
+        setFinalDest(final_dest);
+        let coba = start_dest.substr(7,29);
+        coba = coba.replace(")", "")
+        let [lat, lng] = coba.split(", ")
+        let latInt = parseFloat(lat)
+        let lngint = parseFloat(lng)
+        const startDes = {lat: latInt, lng: lngint}
+        setLocation(startDes)
+
+        let cobain = final_dest.substr(7,29);
+        cobain = cobain.replace(")", "")
+        let [latFinal, lngFinal] = cobain.split(", ")
+        let latIntFinal = parseFloat(latFinal)
+        let lngintFinal = parseFloat(lngFinal)
+        const finalDes = {lat: latIntFinal, lng: lngintFinal}
+        setLocation(startDes)
+        setDestination(finalDes)
+      })
+      .catch((err) => {
+        alert(err.toString());
+      })
+      .finally();
+  };
+
   return (
     <MapContainer
       className='fixed top-16 h-52 w-[425px] z-10'
