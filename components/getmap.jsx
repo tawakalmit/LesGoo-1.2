@@ -17,7 +17,7 @@ export default function Getmap({
     <MapContainer
       className='fixed top-16 h-52 w-[425px] z-10'
       center={[center.lat, center.lng]}
-      zoom={13}
+      zoom={7}
       scrollWheelZoom={false}
     >
       <TileLayer

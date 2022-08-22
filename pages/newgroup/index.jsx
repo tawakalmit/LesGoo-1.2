@@ -46,7 +46,15 @@ export default function Newgroup() {
       setLatitude(position.coords.latitude);
       setLongitude(position.coords.longitude);
     });
-  });
+  },);
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(function (position) {
+      let pos = { lat: position.coords.latitude, lng: position.coords.longitude };
+      setStart_dest(pos)
+      setFinal_dest(pos)
+    });
+  },[]);
 
   const handleSubmit = async (e) => {
     setLoading(true);
@@ -67,6 +75,7 @@ export default function Newgroup() {
       .then((response) => response.json())
       .then((result) => {
         const { group_id } = result;
+        setCookie('usr_group_id', group_id);
         route.push(`/group/${group_id}`);
         const { message } = result;
         Swal.fire(message);
@@ -113,7 +122,7 @@ export default function Newgroup() {
               id='input-groupname'
               type='text'
               placeholder=' type group subject'
-              className='mt-5 w-9/12 rounded-xl bg-[#d9d9d9]'
+              className='mt-5 w-9/12 rounded-xl bg-[#d9d9d9] p-5'
               onChange={(e) => handleChange(e.target.value, 'name')}
             />
           </div>
@@ -138,7 +147,7 @@ export default function Newgroup() {
             placeholder=' add group description'
             cols='30'
             rows='10'
-            className='rounded-xl mt-5 h-24 bg-[#d9d9d9] w-10/12'
+            className='rounded-xl mt-5 h-24 bg-[#d9d9d9] w-10/12 p-5'
             onChange={(e) => handleChange(e.target.value, 'description')}
           ></textarea>
         </div>

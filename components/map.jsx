@@ -21,7 +21,7 @@ export default function Map({ center, draggable, onDragMarker, location, popup_l
   );
 
   return (
-    <MapContainer className="h-96 w-full" center={[center.lat, center.lng]} zoom={13} scrollWheelZoom={false}>
+    <MapContainer className="h-96 w-full" center={[center.lat, center.lng]} zoom={10} scrollWheelZoom={false}>
         <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
