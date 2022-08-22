@@ -38,8 +38,6 @@ export default function Getmap({
         setDatas(data);
         const {group_users} = data;
         setGroupusers(group_users);
-        console.log("ini data", datas)
-        console.log("ini group users", group_users)
       })
       .catch((err) => {
         alert(err.toString());
@@ -84,10 +82,10 @@ export default function Getmap({
         <Popup>My Location</Popup>
       </Marker>
 
-      {groupUsers.map(() => (
-          <div>
-            <Marker id='My Location' position={[latitude, longitude]} ref={markerRef}>
-            <Popup>My Location</Popup>
+      {groupUsers.map((group_users) => (
+          <div key={group_users.id}>
+            <Marker id='My Location' position={[group_users.latitude, group_users.longitude]} ref={markerRef}>
+            <Popup>{group_users.username}</Popup>
             </Marker>
           </div>
         ))}
