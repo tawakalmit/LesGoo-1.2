@@ -1,8 +1,9 @@
-import React, { useRef, useMemo } from 'react';
+import React, { useRef, useMemo, useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet-defaulticon-compatibility';
 import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.webpack.css';
+import { getCookie } from 'cookies-next';
 
 export default function Getmap({
   center,
@@ -12,6 +13,37 @@ export default function Getmap({
   longitude,
 }) {
   const markerRef = useRef(null);
+  const token = getCookie('usr_token');
+  const group_id = getCookie('usr_group_id');
+  const [datas, setDatas] = useState({});
+  const [groupUsers, setGroupusers] = useState([])
+
+  useEffect(() => {
+    fetchData();
+  }, [])
+
+  const fetchData = async () => {
+    var requestOptions = {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ group_id: group_id }),
+    };
+    fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/group/chats`, requestOptions)
+      .then((response) => response.json())
+      .then((result) => {
+        const { data } = result;
+        setDatas(data);
+        const {group_users} = data;
+        setGroupusers(group_users);
+      })
+      .catch((err) => {
+        alert(err.toString());
+      })
+      .finally();
+  };
 
   return (
     <MapContainer
@@ -49,6 +81,15 @@ export default function Getmap({
       <Marker id='My Location' position={[latitude, longitude]} ref={markerRef}>
         <Popup>My Location</Popup>
       </Marker>
+
+      {groupUsers.map((group_users) => (
+          <div key={group_users.id}>
+            <Marker id='My Location' position={[group_users.latitude, group_users.longitude]} ref={markerRef}>
+            <Popup>{group_users.username}</Popup>
+            </Marker>
+          </div>
+        ))}
+
     </MapContainer>
   );
 }
