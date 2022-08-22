@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 import 'leaflet/dist/leaflet.css';
 import Head from 'next/head';
-import { getCookie } from 'cookies-next';
+import { getCookie, setCookie } from 'cookies-next';
 import Image from 'next/image';
 import Swal from 'sweetalert2';
 
@@ -99,7 +99,7 @@ export default function Newgroup() {
 
   const handleCoordChange = (value, key) => {
     let temp = { ...objSubmit };
-    temp[key] = value;
+    temp[key] = {value};
     setObjSubmit(temp);
   };
 
@@ -177,11 +177,11 @@ export default function Newgroup() {
             location={start_dest}
             draggable={true}
             onDragMarker={(e) => {
-              console.log(e);
-              handleChange(e, 'start_dest');
               let loc = { lat: e.lat, lng: e.lng };
               setStart_dest(loc);
-              console.log('start', start_dest);
+              console.log(start_dest)
+              console.log(loc)
+              handleChange(e, 'start_dest');
             }}
           />
           {'lat: ' + start_dest.lat}
@@ -196,10 +196,9 @@ export default function Newgroup() {
             location={final_dest}
             draggable={true}
             onDragMarker={(e) => {
-              handleChange(e, 'final_dest');
               let loc = { lat: e.lat, lng: e.lng };
               setFinal_dest(loc);
-              console.log('finish', final_dest);
+              handleChange(e, 'final_dest');
             }}
           />
           {'lat: ' + final_dest.lat}
