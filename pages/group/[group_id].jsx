@@ -7,13 +7,14 @@ import { getCookie } from 'cookies-next';
 import Swal from 'sweetalert2';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
+import { parse } from 'date-fns';
 
 export default function Group() {
   const token = getCookie('usr_token');
   const group_id = getCookie('usr_group_id');
   const router = useRouter();
-  const [final_dest, setFinalDest] = useState("");
-  const [start_dest, setStartDest] = useState("");
+  const [final_dest, setFinalDest] = useState({});
+  const [start_dest, setStartDest] = useState({});
 
   useEffect(() => {
     if (!token) {
@@ -71,10 +72,26 @@ export default function Group() {
       .then((response) => response.json())
       .then((result) => {
         const { data } = result;
+        console.log(data);
         const {start_dest, final_dest} = data;
         setStartDest(start_dest);
         setFinalDest(final_dest);
-        console.log("ini start destination",start_dest);
+        let coba = start_dest.substr(7,29);
+        coba = coba.replace(")", "")
+        let [lat, lng] = coba.split(", ")
+        let latInt = parseFloat(lat)
+        let lngint = parseFloat(lng)
+        const startDes = {lat: latInt, lng: lngint}
+        setLocation(startDes)
+
+        let cobain = final_dest.substr(7,29);
+        cobain = cobain.replace(")", "")
+        let [latFinal, lngFinal] = cobain.split(", ")
+        let latIntFinal = parseFloat(latFinal)
+        let lngintFinal = parseFloat(lngFinal)
+        const finalDes = {lat: latIntFinal, lng: lngintFinal}
+        setLocation(startDes)
+        setDestination(finalDes)
       })
       .catch((err) => {
         alert(err.toString());
@@ -94,8 +111,8 @@ export default function Group() {
           <Getmap
             popup_label='Start Location'
             center={location}
-            location={start_dest}
-            destination={final_dest}
+            location={location}
+            destination={destination}
             latitude={latitude}
             longitude={longitude}
           />
