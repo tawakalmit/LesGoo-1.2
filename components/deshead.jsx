@@ -11,8 +11,14 @@ import { RiDeleteBin6Fill, RiLogoutCircleRFill } from 'react-icons/ri';
 import { async } from '@firebase/util';
 import { getCookie, deleteCookie } from 'cookies-next';
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 
-export default function Deshead({ groupname, groupid, participants }) {
+export default function Deshead({
+  groupname,
+  groupid,
+  participants,
+  group_img,
+}) {
   const token = getCookie('usr_token');
   const group_id = getCookie('usr_group_id');
   const router = useRouter();
@@ -148,7 +154,7 @@ export default function Deshead({ groupname, groupid, participants }) {
         </div>
       </div>
       <div className='flex flex-col items-center pb-2'>
-        <AiFillPicture size={100} />
+        <Image width={150} height={150} alt='image' src={group_img} />
         <h1 className='text-white text-2xl'>{groupname}</h1>
         <h2 className='text-white opacity-70'>Group ID : {groupid}</h2>
         <p className='text-white text-xs'>{participants} participants</p>
