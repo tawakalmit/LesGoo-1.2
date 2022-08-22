@@ -34,13 +34,10 @@ export default function Profile() {
         Authorization: `Bearer ${token}`,
       },
     };
-    fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/users `,
-      requestOptions
-    )
+    fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/users `, requestOptions)
       .then((response) => response.json())
       .then((result) => {
-        console.log(result)
+        console.log(result);
         const { data } = result;
         const { ID, Username, Email, Phone, ProfileImg } = data;
         setId(ID);
@@ -59,8 +56,6 @@ export default function Profile() {
     return <div>Loading...</div>;
   }
 
-  console.log(ProfileImg)
-
   return (
     <div className='bg-[#ecf0f1] border-0 h-screen md:h-screen w-[425px] mx-auto border-2 border-[#2c3e50] pb-10'>
       <Head>
@@ -68,9 +63,13 @@ export default function Profile() {
         <link rel='icon' href='/icon.png' />
       </Head>
       <Navbarback title={'Profile'} />
-      <div>
+      <div className='mt-10'>
         <div className='w-10/12 flex flex-col mx-auto items-center'>
-          <Image width={200} height={200} alt='image' src={"/user.png"} />
+          {ProfileImg ? (
+            <Image width={70} height={70} alt='image' src={ProfileImg} />
+          ) : (
+            <CgProfile size={70} />
+          )}
           <h1 className='text-xl mt-3'>{username}</h1>
           <div className='w-11/12 mx-auto justify-between flex mt-10'>
             <h2 className='text-lg font-regular'>EMAIL</h2>
