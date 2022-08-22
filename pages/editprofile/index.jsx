@@ -81,7 +81,7 @@ export default function Editprofile() {
       .then((result) => {
         console.log(result);
         const { message } = result;
-        // route.push(`/profile`);
+        route.push(`/profile`);
         Swal.fire(message);
       })
       .catch((error) => {
