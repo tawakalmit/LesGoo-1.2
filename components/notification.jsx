@@ -54,27 +54,12 @@ function Notification({ children }) {
     onMessage(messaging, (message) => {
       console.log('Message received. ', message);
       if (message.data.isSOS == 'true') {
-        let timerInterval;
         Swal.fire({
           backdrop: `rgba(231, 76, 60, .7)`,
+          icon: 'warning',
           title: 'SOS Activated',
-          html: `<strong></strong> seconds.<br/><br/> Slowly! <br> ${message.data.username} are left behind!!!`,
-          timer: 15000,
-          didOpen: () => {
-            const content = Swal.getHtmlContainer();
-            const $ = content.querySelector.bind(content);
-
-            Swal.showLoading();
-
-            timerInterval = setInterval(() => {
-              Swal.getHtmlContainer().querySelector('strong').textContent = (
-                Swal.getTimerLeft() / 1000
-              ).toFixed(0);
-            }, 100);
-          },
-          willClose: () => {
-            clearInterval(timerInterval);
-          },
+          html: `<strong> Slowly! </strong> <br/><br/> ${message.data.message}`,
+          footer: `by: ${message.data.username}`,
         });
       }
 

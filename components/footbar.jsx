@@ -26,31 +26,83 @@ export default function Footbar(props) {
     setMessage((state) => ({ ...state, group_id: getCookie('usr_group_id') }));
   }, []);
 
-  const handleClickSos = (e) => {
-    e.preventDefault();
-    let requestOptions = {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        group_id: message.group_id,
-        isSOS: true,
-        message: 'SOS',
-      }),
-    };
-    fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/chats`, requestOptions)
-      .then((response) => response.json())
-      .then((result) => {
-        if (code === 200) {
-          // console.log(result);
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  // const handleClickSos = (e) => {
+  //   e.preventDefault();
+  //   let requestOptions = {
+  //     method: 'POST',
+  //     headers: {
+  //       Authorization: `Bearer ${token}`,
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify({
+  //       group_id: message.group_id,
+  //       isSOS: true,
+  //       message: 'SOS',
+  //     }),
+  //   };
+  //   fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/chats`, requestOptions)
+  //     .then((response) => response.json())
+  //     .then((result) => {
+  //       if (code === 200) {
+  //         // console.log(result);
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
 
+  //   let timerInterval;
+  //   Swal.fire({
+  //     backdrop: `rgba(231, 76, 60, .7)`,
+  //     title: 'SOS Activated',
+  //     html: '<strong></strong> seconds.<br/><br/> Dont worry, <br> Your group members are alerted.',
+  //     timer: 15000,
+  //     didOpen: () => {
+  //       const content = Swal.getHtmlContainer();
+  //       const $ = content.querySelector.bind(content);
+
+  //       Swal.showLoading();
+
+  //       timerInterval = setInterval(() => {
+  //         Swal.getHtmlContainer().querySelector('strong').textContent = (
+  //           Swal.getTimerLeft() / 1000
+  //         ).toFixed(0);
+  //       }, 100);
+  //     },
+  //     willClose: () => {
+  //       clearInterval(timerInterval);
+  //     },
+  //   });
+  // };
+
+  const handleClickSendSOS = async (e) => {
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/chats`,
+        {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            group_id: message.group_id,
+            isSOS: true,
+            message: message.message,
+          }),
+        }
+      );
+      const data = await response.json();
+      if (response.status < 300) {
+        setMessage((state) => ({ ...state, message: '' }));
+        // alert('success');
+      } else if (response.status >= 300) {
+        throw data.message;
+      }
+    } catch (error) {
+      console.log('error:', error);
+      // alert(error);
+    }
     let timerInterval;
     Swal.fire({
       backdrop: `rgba(231, 76, 60, .7)`,
@@ -139,7 +191,7 @@ export default function Footbar(props) {
     <div className='w-full shadow-2xl shadow-black fixed bottom-0 h-16 bg-[#1abc9c] mx-auto md:w-[425px]'>
       <div className='mx-auto  h-16 items-center w-11/12 flex justify-between '>
         <GoAlert
-          onClick={handleClickSos}
+          onClick={handleClickSendSOS}
           className='cursor-pointer '
           size={35}
           color='#E74C3C'

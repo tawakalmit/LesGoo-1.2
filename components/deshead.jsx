@@ -12,6 +12,7 @@ import { async } from '@firebase/util';
 import { getCookie, deleteCookie } from 'cookies-next';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
+import localforage from 'localforage';
 
 export default function Deshead({
   groupname,
