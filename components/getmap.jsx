@@ -1,4 +1,4 @@
-import React, { useRef, useMemo, useEffect } from 'react';
+import React, { useRef, useMemo, useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet-defaulticon-compatibility';
@@ -15,6 +15,7 @@ export default function Getmap({
   const markerRef = useRef(null);
   const token = getCookie('usr_token');
   const group_id = getCookie('usr_group_id');
+  const [datas, setDatas] = useState([]);
 
   useEffect(() => {
     fetchData();
@@ -33,6 +34,7 @@ export default function Getmap({
       .then((response) => response.json())
       .then((result) => {
         const { data } = result;
+        console.log(data);
       })
       .catch((err) => {
         alert(err.toString());
@@ -76,6 +78,9 @@ export default function Getmap({
       <Marker id='My Location' position={[latitude, longitude]} ref={markerRef}>
         <Popup>My Location</Popup>
       </Marker>
+
+
+
     </MapContainer>
   );
 }

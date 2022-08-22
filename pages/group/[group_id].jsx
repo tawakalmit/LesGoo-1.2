@@ -71,7 +71,6 @@ export default function Group() {
       .then((response) => response.json())
       .then((result) => {
         const { data } = result;
-        console.log(data);
         const {start_dest, final_dest} = data;
         setStartDest(start_dest);
         setFinalDest(final_dest);
