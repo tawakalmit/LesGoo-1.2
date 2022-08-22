@@ -49,7 +49,6 @@ export default function Group() {
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(function (position) {
-      console.log(position.coords);
       setLatitude(position.coords.latitude);
       setLongitude(position.coords.longitude);
     });

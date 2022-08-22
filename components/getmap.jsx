@@ -1,8 +1,9 @@
-import React, { useRef, useMemo } from 'react';
+import React, { useRef, useMemo, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet-defaulticon-compatibility';
 import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.webpack.css';
+import { getCookie } from 'cookies-next';
 
 export default function Getmap({
   center,
@@ -12,6 +13,8 @@ export default function Getmap({
   longitude,
 }) {
   const markerRef = useRef(null);
+  const token = getCookie('usr_token');
+  const group_id = getCookie('usr_group_id');
 
   useEffect(() => {
     fetchData();
@@ -30,26 +33,6 @@ export default function Getmap({
       .then((response) => response.json())
       .then((result) => {
         const { data } = result;
-        console.log(data);
-        const {start_dest, final_dest} = data;
-        setStartDest(start_dest);
-        setFinalDest(final_dest);
-        let coba = start_dest.substr(7,29);
-        coba = coba.replace(")", "")
-        let [lat, lng] = coba.split(", ")
-        let latInt = parseFloat(lat)
-        let lngint = parseFloat(lng)
-        const startDes = {lat: latInt, lng: lngint}
-        setLocation(startDes)
-
-        let cobain = final_dest.substr(7,29);
-        cobain = cobain.replace(")", "")
-        let [latFinal, lngFinal] = cobain.split(", ")
-        let latIntFinal = parseFloat(latFinal)
-        let lngintFinal = parseFloat(lngFinal)
-        const finalDes = {lat: latIntFinal, lng: lngintFinal}
-        setLocation(startDes)
-        setDestination(finalDes)
       })
       .catch((err) => {
         alert(err.toString());
