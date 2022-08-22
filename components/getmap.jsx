@@ -15,7 +15,8 @@ export default function Getmap({
   const markerRef = useRef(null);
   const token = getCookie('usr_token');
   const group_id = getCookie('usr_group_id');
-  const [datas, setDatas] = useState([]);
+  const [datas, setDatas] = useState({});
+  const [groupUsers, setGroupusers] = useState([])
 
   useEffect(() => {
     fetchData();
@@ -34,7 +35,11 @@ export default function Getmap({
       .then((response) => response.json())
       .then((result) => {
         const { data } = result;
-        console.log(data);
+        setDatas(data);
+        const {group_users} = data;
+        setGroupusers(group_users);
+        console.log("ini data", datas)
+        console.log("ini group users", group_users)
       })
       .catch((err) => {
         alert(err.toString());
@@ -79,7 +84,13 @@ export default function Getmap({
         <Popup>My Location</Popup>
       </Marker>
 
-
+      {groupUsers.map(() => (
+          <div>
+            <Marker id='My Location' position={[latitude, longitude]} ref={markerRef}>
+            <Popup>My Location</Popup>
+            </Marker>
+          </div>
+        ))}
 
     </MapContainer>
   );
