@@ -3,13 +3,15 @@ import React, { useState, useEffect } from 'react';
 import { FiSend } from 'react-icons/fi';
 import { GoAlert } from 'react-icons/go';
 import Swal from 'sweetalert2';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { getCookie } from 'cookies-next';
-import Router from 'next/router';
+import { setChats } from '../redux/chat';
 
 export default function Footbar(props) {
   const token = getCookie('usr_token');
-
+  const group_id = getCookie('usr_group_id');
+  const dispatch = useDispatch();
   const [message, setMessage] = useState({
     message: '',
     isSOS: false,
@@ -93,6 +95,7 @@ export default function Footbar(props) {
       const data = await response.json();
       if (response.status < 300) {
         setMessage((state) => ({ ...state, message: '' }));
+        fetchChat();
         // alert('success');
       } else if (response.status >= 300) {
         throw data.message;
@@ -102,6 +105,36 @@ export default function Footbar(props) {
       // alert(error);
     }
   };
+
+  const fetchChat = async () => {
+    var requestOptions = {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ group_id: group_id }),
+    };
+    fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/group/chats`, requestOptions)
+      .then((response) => response.json())
+      .then((result) => {
+        const { data } = result;
+        // console.log(data);
+        dispatch(
+          setChats({
+            status: data.status,
+            groupname: data.name,
+            chats: data.chats,
+            created_at: data.created_at,
+          })
+        );
+      })
+      .catch((err) => {
+        alert(err.toString());
+      })
+      .finally();
+  };
+
   return (
     <div className='w-full shadow-2xl shadow-black fixed bottom-0 h-16 bg-[#1abc9c] mx-auto md:w-[425px]'>
       <div className='mx-auto  h-16 items-center w-11/12 flex justify-between '>
