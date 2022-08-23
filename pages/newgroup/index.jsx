@@ -129,12 +129,14 @@ export default function Newgroup() {
               placeholder=' type group subject'
               className='mt-5 w-9/12 rounded-xl bg-[#d9d9d9] p-5'
               onChange={(e) => handleChange(e.target.value, 'name')}
+              required
             />
           </div>
           <div className='w-fit mx-auto mt-3'>
             <input
               id='input-img'
               type='file'
+              required
               onChange={(e) => {
                 setGroupimg(URL.createObjectURL(e.target.files[0]));
                 handleChange(e.target.files[0], 'groupimg');
@@ -148,6 +150,7 @@ export default function Newgroup() {
         <div className='w-full mt-10 h-32 bg-white flex flex-col items-center'>
           <textarea
             id='input-groupdes'
+            required
             name='description'
             placeholder=' add group description'
             cols='30'
@@ -161,6 +164,7 @@ export default function Newgroup() {
             <p className='text-center text-white'>Start Date</p>
             <input
               type='date'
+              required
               id='start-date'
               onChange={(e) => handleChange(e.target.value, 'start_date')}
             />
@@ -169,6 +173,7 @@ export default function Newgroup() {
             <p className='text-center text-white'>End Date</p>
             <input
               id='end-date'
+              required
               type='date'
               onChange={(e) => handleChange(e.target.value, 'end_date')}
             />
@@ -176,6 +181,7 @@ export default function Newgroup() {
         </div>
         <div className='w-full mt-10 h-auto bg-white'>
           <h2 className='p-3'>Start Location</h2>
+          <p className='text-xs text-center mb-2 opacity-50'>Marker must be moved to set your location</p>
           <Map
             popup_label='Start Location'
             center={start_dest}
@@ -195,6 +201,7 @@ export default function Newgroup() {
         </div>
         <div className='w-full mt-10 h-auto bg-white'>
           <h2 className='p-3'>Set Destination</h2>
+          <p className='text-xs text-center mb-2 opacity-50'>Marker must be moved to set your location</p>
           <Map
             popup_label='Destination'
             center={final_dest}
@@ -218,6 +225,7 @@ export default function Newgroup() {
             <div className='w-24 flex justify-around'>
               <input
                 type='radio'
+                required
                 onChange={(e) => {
                   handlePosition(latitude, 'latitude');
                 }}
@@ -227,6 +235,7 @@ export default function Newgroup() {
             <div className='w-24 flex justify-around'>
               <input
                 type='radio'
+                required
                 onChange={(e) => {
                   handlePosition(longitude, 'longitude');
                 }}
