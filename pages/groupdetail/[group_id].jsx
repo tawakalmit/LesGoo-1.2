@@ -3,7 +3,7 @@ import Deshead from '../../components/deshead';
 import Description from '../../components/description';
 import Contact from '../../components/contact';
 import { setCookie, getCookie } from 'cookies-next';
-import { useRouter } from 'next/router';
+import Router, { useRouter } from 'next/router';
 import Head from 'next/head';
 
 export default function GroupDetail() {
@@ -25,7 +25,6 @@ export default function GroupDetail() {
     if (!group_id) {
       router.push('/');
     }
-    console.log('hee');
     fetchData();
   }, []);
 
@@ -42,19 +41,24 @@ export default function GroupDetail() {
     )
       .then((response) => response.json())
       .then((result) => {
-        const { data } = result;
-        console.log(data);
-        setDataGroup((state) => ({
-          ...state,
-          group_id: data.id,
-          group_name: data.name,
-          group_img: data.groupimg,
-          description: data.description,
-          group_users: data.group_users,
-        }));
+        console.log(result);
+        if (result.code > 300) {
+          alert('group is already deleted');
+          router.push(`/group/${group_id}`);
+        } else {
+          const { data } = result;
+          setDataGroup((state) => ({
+            ...state,
+            group_id: data.id,
+            group_name: data.name,
+            group_img: data.groupimg,
+            description: data.description,
+            group_users: data.group_users,
+          }));
+        }
       })
       .catch((err) => {
-        alert(err.toString());
+        // alert(err.toString());
       })
       .finally(console.log(dataGroup));
   };
