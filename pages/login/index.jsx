@@ -72,7 +72,7 @@ export default function Login() {
       }
     } catch (error) {
       console.log('error:', error);
-      alert('Oops, everything is fine. just try again, Thank you :)');
+      alert(error);
     }
   };
 
