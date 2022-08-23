@@ -8,10 +8,12 @@ import { GiHamburgerMenu } from 'react-icons/gi';
 import { CgProfile } from 'react-icons/cg';
 import { MdLogout } from 'react-icons/md';
 import { RiDeleteBin6Fill, RiLogoutCircleRFill } from 'react-icons/ri';
-import { async } from '@firebase/util';
 import { getCookie, deleteCookie } from 'cookies-next';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
+import localforage from 'localforage';
+import Swal from 'sweetalert2';
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function Deshead({
   groupname,
@@ -22,6 +24,7 @@ export default function Deshead({
   const token = getCookie('usr_token');
   const group_id = getCookie('usr_group_id');
   const router = useRouter();
+  const dispatch = useDispatch;
 
   const handleClickLeaveGroup = () => {
     var leave = {
@@ -73,29 +76,43 @@ export default function Deshead({
     }
   };
 
-  const handleClickDeleteGroup = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/group/${group_id}`,
-        {
-          method: 'DELETE',
-          headers: {
-            Authorization: `bearer ${token}`,
-            'Content-Type': 'application/json',
-          },
+  const handleClickDeleteGroup = async () => {
+    Swal.fire({
+      title: 'Do you want to delete your group?',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'yes!',
+      denyButtonText: `NO!`,
+    }).then(async (result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        try {
+          const response = await fetch(
+            `${process.env.NEXT_PUBLIC_BACKEND_URL}/group/${group_id}`,
+            {
+              method: 'DELETE',
+              headers: {
+                Authorization: `bearer ${token}`,
+                'Content-Type': 'application/json',
+              },
+            }
+          );
+          const data = await response.json();
+          if (response.status < 300) {
+            deleteCookie('usr_group_id');
+            Swal.fire('Deleted!', '', 'success');
+            router.push('/');
+          } else if (response.status >= 300) {
+            alert('You are not a group owner');
+            throw data.message;
+          }
+        } catch (error) {
+          // console.error('Error:', error);
         }
-      );
-      const data = await response.json();
-      if (response.status === 200) {
-        deleteCookie('usr_group_id');
-        router.push('/');
-      } else if (response.status >= 300) {
-        throw data.message;
+      } else if (result.isDenied) {
+        Swal.fire('canceled', '', 'info');
       }
-    } catch (error) {
-      console.error('Error:', error);
-    }
+    });
   };
 
   return (
@@ -155,9 +172,9 @@ export default function Deshead({
       </div>
       <div className='flex flex-col items-center pb-2'>
         <Image width={150} height={150} alt='image' src={group_img} />
-        <h1 className='text-white text-2xl'>{groupname}</h1>
-        <h2 className='text-white opacity-70'>Group ID : {groupid}</h2>
-        <p className='text-white text-xs'>{participants} participants</p>
+        <h1 className='text-white text-2xl my-2'>{groupname}</h1>
+        <h2 className='text-white opacity-70 mb-2'>Group ID : {groupid}</h2>
+        <p className='text-white text-xs mb-2'>{participants} participants</p>
       </div>
     </div>
   );

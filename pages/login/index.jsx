@@ -67,11 +67,12 @@ export default function Login() {
           router.push('/');
         }
       } else if (response.status >= 300) {
+        location.reload();
         throw data.message;
       }
     } catch (error) {
       console.log('error:', error);
-      alert('something is wrong, please recheck or refresh your page');
+      alert('Oops, everything is fine. just try again, Thank you :)');
     }
   };
 

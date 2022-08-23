@@ -46,15 +46,18 @@ export default function Newgroup() {
       setLatitude(position.coords.latitude);
       setLongitude(position.coords.longitude);
     });
-  },);
+  });
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(function (position) {
-      let pos = { lat: position.coords.latitude, lng: position.coords.longitude };
-      setStart_dest(pos)
-      setFinal_dest(pos)
+      let pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude,
+      };
+      setStart_dest(pos);
+      setFinal_dest(pos);
     });
-  },[]);
+  }, []);
 
   const handleSubmit = async (e) => {
     setLoading(true);
@@ -74,12 +77,14 @@ export default function Newgroup() {
     fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/group`, requestOptions)
       .then((response) => response.json())
       .then((result) => {
-        const { group_id } = result;
-        setCookie('usr_group_id', group_id);
-        route.push(`/group/${group_id}`);
-        const { message } = result;
-        Swal.fire(message);
-        setObjSubmit({});
+        if (result.code < 300) {
+          const { group_id } = result;
+          setCookie('usr_group_id', group_id);
+          route.push(`/group/${group_id}`);
+          const { message } = result;
+          Swal.fire(message);
+          setObjSubmit({});
+        }
       })
       .catch((error) => console.log('error', error))
       .finally(() => setLoading(false));
@@ -99,7 +104,7 @@ export default function Newgroup() {
 
   const handleCoordChange = (value, key) => {
     let temp = { ...objSubmit };
-    temp[key] = {value};
+    temp[key] = { value };
     setObjSubmit(temp);
   };
 
@@ -179,8 +184,8 @@ export default function Newgroup() {
             onDragMarker={(e) => {
               let loc = { lat: e.lat, lng: e.lng };
               setStart_dest(loc);
-              console.log(start_dest)
-              console.log(loc)
+              console.log(start_dest);
+              console.log(loc);
               handleChange(e, 'start_dest');
             }}
           />

@@ -49,7 +49,6 @@ export default function Chat() {
         // console.log(data);
         dispatch(
           setChats({
-            status: data.status,
             groupname: data.name,
             chats: data.chats,
             created_at: data.created_at,
@@ -80,9 +79,11 @@ export default function Chat() {
                   }`,
                 }}
               >
-                <p className='text-sm text-teal'>{chat.username}</p>
+                <p className='text-sm font-semibold text-teal'>
+                  {chat.username}
+                </p>
                 <p className='text-sm mt-1'>{chat.message}</p>
-                <p className='text-right text-xs text-grey-dark mt-1'>
+                <p className='text-right font-thin text-xs text-grey-dark mt-1'>
                   {formatDate(chat.created_at)}
                 </p>
               </div>
