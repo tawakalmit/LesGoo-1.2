@@ -150,7 +150,7 @@ export default function Editprofile() {
             <input
               id='edit-username'
               type='text'
-              value={objSubmit.Username}
+              placeholder={objSubmit.Username}
               className='w-full mx-auto p-1 mt-1 rounded-lg pl-2 border-2 font-semibold text-slate-700 border-slate-500 shadow-sm placeholder:text-slate-400 placeholder:text-sm focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-green-400'
               onChange={(e) => handleChange(e.target.value, 'Username')}
             />
@@ -160,7 +160,7 @@ export default function Editprofile() {
             <input
               id='edit-email'
               type='email'
-              value={objSubmit.Email}
+              placeholder={objSubmit.Email}
               className='w-full mx-auto p-1 mt-1 rounded-lg pl-2 border-2 font-semibold text-slate-700 border-slate-500 shadow-sm placeholder:text-slate-400 placeholder:text-sm focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-green-400'
               onChange={(e) => handleChange(e.target.value, 'Email')}
             />
@@ -170,7 +170,7 @@ export default function Editprofile() {
             <input
               id='edit-phone'
               type='number'
-              value={objSubmit.Phone}
+              placeholder={objSubmit.Phone}
               className='w-full mx-auto p-1 mt-1 rounded-lg pl-2 border-2 font-semibold text-slate-700 border-slate-500 shadow-sm placeholder:text-slate-400 placeholder:text-sm focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-green-400'
               onChange={(e) => handleChange(e.target.value, 'Phone')}
             />

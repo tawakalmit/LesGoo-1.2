@@ -17,7 +17,7 @@ export default function Navbarback(props) {
             size={25}
             color='white'
             onClick={() => {
-              router.back();
+              router.push('/');
             }}
           />
         </div>
