@@ -49,6 +49,7 @@ export default function Register() {
       }
     } catch (error) {
       console.log('error:', error);
+      alert(error);
     }
   };
 
@@ -56,7 +57,7 @@ export default function Register() {
     <div className='bg-[#ecf0f1] border-0 h-full md:w-[425px] mx-auto border-2 border-[#2c3e50] pb-10 lg:h-screen xl:h-screen'>
       <Head>
         <title>LesGoo | Register</title>
-        <link rel="icon" href="/icon.png" />
+        <link rel='icon' href='/icon.png' />
       </Head>
       <h1 className='text-4xl font-semibold text-center pt-20'>Register</h1>
       <form onSubmit={handleSubmitSignUp} className='mt-12 mx-auto w-8/12'>
