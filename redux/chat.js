@@ -3,7 +3,6 @@ import { createSlice } from '@reduxjs/toolkit';
 export const authSlice = createSlice({
   name: 'chats',
   initialState: {
-    status: '',
     chats: [],
     groupname: '',
     created_at: '',
@@ -12,7 +11,6 @@ export const authSlice = createSlice({
     setChats: (state, action) => {
       state.chats = action.payload.chats;
       state.groupname = action.payload.groupname;
-      state.status = action.payload.status;
     },
   },
 });

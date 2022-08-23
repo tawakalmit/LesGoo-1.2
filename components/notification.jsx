@@ -59,7 +59,7 @@ function Notification({ children }) {
           icon: 'warning',
           title: 'SOS Activated',
           html: `<strong> Slowly! </strong> <br/><br/> ${message.data.message}`,
-          footer: `by: ${message.data.username}`,
+          footer: `<strong>  by: ${message.data.username} <strong/>`,
         });
       }
 

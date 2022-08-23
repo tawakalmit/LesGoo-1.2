@@ -56,7 +56,7 @@ export default function Group() {
 
   useEffect(() => {
     fetchData();
-  }, [])
+  }, []);
 
   const fetchData = async () => {
     var requestOptions = {
@@ -71,25 +71,25 @@ export default function Group() {
       .then((response) => response.json())
       .then((result) => {
         const { data } = result;
-        const {start_dest, final_dest} = data;
+        const { start_dest, final_dest } = data;
         setStartDest(start_dest);
         setFinalDest(final_dest);
-        let coba = start_dest.substr(7,29);
-        coba = coba.replace(")", "")
-        let [lat, lng] = coba.split(", ")
-        let latInt = parseFloat(lat)
-        let lngint = parseFloat(lng)
-        const startDes = {lat: latInt, lng: lngint}
-        setLocation(startDes)
+        let coba = start_dest.substr(7, 29);
+        coba = coba.replace(')', '');
+        let [lat, lng] = coba.split(', ');
+        let latInt = parseFloat(lat);
+        let lngint = parseFloat(lng);
+        const startDes = { lat: latInt, lng: lngint };
+        setLocation(startDes);
 
-        let cobain = final_dest.substr(7,29);
-        cobain = cobain.replace(")", "")
-        let [latFinal, lngFinal] = cobain.split(", ")
-        let latIntFinal = parseFloat(latFinal)
-        let lngintFinal = parseFloat(lngFinal)
-        const finalDes = {lat: latIntFinal, lng: lngintFinal}
-        setLocation(startDes)
-        setDestination(finalDes)
+        let cobain = final_dest.substr(7, 29);
+        cobain = cobain.replace(')', '');
+        let [latFinal, lngFinal] = cobain.split(', ');
+        let latIntFinal = parseFloat(latFinal);
+        let lngintFinal = parseFloat(lngFinal);
+        const finalDes = { lat: latIntFinal, lng: lngintFinal };
+        setLocation(startDes);
+        setDestination(finalDes);
       })
       .catch((err) => {
         alert(err.toString());
@@ -103,7 +103,7 @@ export default function Group() {
         <title>LesGoo | Group</title>
         <link rel='icon' href='/icon.png' />
       </Head>
-      <div className='bg-slate-500 min-h-screen md:w-[425px] mx-auto border-[#2c3e50] pb-10'>
+      <div className='bg-slate-600 min-h-screen md:w-[425px] mx-auto border-[#2c3e50] pb-10'>
         <Navbargroup />
         <div>
           <Getmap
