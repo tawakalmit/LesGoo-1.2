@@ -93,6 +93,8 @@ npm run dev
 - [Headless UI](https://headlessui.com/)
 - [Cookies Next js](https://www.npmjs.com/package/cookies-next)
 - [Local Forage](https://www.npmjs.com/package/localforage)
+- [FNS Date](https://www.npmjs.com/package/date-fns)
+- [react toastify](https://www.npmjs.com/package/react-toastify)
 
 ## 📁 Folder Structure
 
