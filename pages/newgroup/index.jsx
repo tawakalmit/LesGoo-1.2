@@ -166,12 +166,7 @@ export default function Newgroup() {
               type='date'
               required
               id='start-date'
-              onChange={(e) => {
-                let mulaiDate = new Date(e.target.value);
-                let toSeconds = mulaiDate.getTime();
-                setStart_date(toSeconds);
-                handleChange(e.target.value, 'start_date');
-              }}
+              onChange={(e) => {handleChange(e.target.value, 'start_date');}}
             />
           </div>
           <div className='bg-[#1abc9c] rounded'>
@@ -180,19 +175,7 @@ export default function Newgroup() {
               id='end-date'
               required
               type='date'
-              onChange={(e) => {
-                let akhirDate = new Date(e.target.value)
-                let convertToSeconds = akhirDate.getTime()
-                setEnd_date(convertToSeconds)
-                if(start_date===""){
-                  alert("Set the start date first!");
-                  e.target.value=null;
-                  setEnd_date(null);
-                } else if (start_date < end_date) {
-                  e.target.value=null;
-                  alert("start date cant be passed the end date")
-                } else handleChange(e.target.value, 'end_date');
-              }}
+              onChange={(e) => {handleChange(e.target.value, 'end_date');}}
             />
           </div>
         </div>
